@@ -4,18 +4,17 @@
 
 </div>
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         $('#dg').datagrid({
-            url:'http://localhost/rest/index.php/lsp',
+            url: remote_url + '/index.php/lsp',
             rownumbers: true,
-            method:'get',
-            columns:[[
-            {field:'id',title:'Kode',width:50},
-            {field:'lsp',title:'Nama LSP',width:'auto'},
-            
-            ]],
-            pagination:true,
-            pageSize : 10
+            method: 'get',
+            columns: [[
+                    {field: 'id', title: 'Kode', width: 50},
+                    {field: 'lsp', title: 'Nama LSP', width: 'auto'},
+                ]],
+            pagination: true,
+            pageSize: 10
         });
     })
 </script>
