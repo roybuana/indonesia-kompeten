@@ -27,32 +27,36 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        $('#btnRegister').linkbutton({
+            width: '100%',
+            heigth: '40px',
+            size: 'large'
+        });
 
-    $('#btnRegister').linkbutton({
-        width: '100%',
-        heigth: '40px',
-        size: 'large'
-    });
 
-    $("div #btnRegister").on('click', function () {
-        var dtform = $("#ff").serializeArray();
-        dtform['kode_lsp'] = kode_lsp;
-        console.log(dtform);
-        /*
-         $.post(remote_url + "index.php/kontak", dtform,
-         function (data) {
-         console.log(data);
-         $.messager.alert('Warning', data.nama + " & " + kode_lsp);
-         //alert("Data: " + data + "\nStatus: " + status);
-         });
-         */
-    });
-    
-    $('#cc').combobox({
-        url: remote_url + 'index.php/skema',
-        valueField: 'id',
-        textField: 'text',
-        method: 'get'
-    });
+        $("div #btnRegister").on('click', function () {
+            var dtform = $("#ff").serializeArray();
+            dtform['kode_lsp'] = kode_lsp;
+            $.messager.alert('Warning', kode_lsp);
+            console.log(dtform);
 
+            /*
+             $.post(remote_url + "index.php/kontak", dtform,
+             function (data) {
+             console.log(data);
+             $.messager.alert('Warning', data.nama + " & " + kode_lsp);
+             //alert("Data: " + data + "\nStatus: " + status);
+             });
+             */
+        });
+
+
+        $('#cc').combobox({
+            url: remote_url + 'index.php/skema',
+            valueField: 'id',
+            textField: 'text',
+            method: 'get'
+        });
+    });
 </script>
