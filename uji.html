@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>Menubar - jQuery EasyUI Mobile Demo</title>
+	<link rel="stylesheet" type="text/css" href="themes/metro/easyui.css">
+	<link rel="stylesheet" type="text/css" href="themes/mobile.css">
+	<link rel="stylesheet" type="text/css" href="themes/icon.css">
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="jquery.easyui.mobile.js"></script>
+</head>
+<body>
+	<div class="easyui-navpanel">
+		<header>
+			<div class="m-toolbar">
+				<div class="m-title">
+					<a href="index.html" class="easyui-linkbutton" data-options="plain:true,outline:true" style="width:70px">Home</a>  
+					<a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#mm1',outline:true" style="width:70px">LSP</a>  
+					<a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#mm2',outline:true" style="width:75px">Help</a>  
+					<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,outline:true" style="width:70px">About</a>  
+				</div>
+			</div>
+		</header>
+	</div>
+	<div id="mm1" class="easyui-menu" style="width:150px;">
+		<div data-options="iconCls:'icon-undo'">Uji Kompetensi</div>
+		<div data-options="iconCls:'icon-redo'">Skema Sertifikasi</div>
+		<div class="menu-sep"></div>
+		<div>Tempat Uji Kompetensi</div>
+		<div>Asesor Kompetensi</div>
+		
+	</div>
+	<div id="mm2" style="width:100px;">  
+		<div>Help</div>  
+		<div>Update</div>  
+		<div>About</div>  
+	</div> 
+	<h2>REGISTRASI UJI KOMPETENSI</h2>
+	<form id="ff">
+		<div style="margin-bottom:10px">
+			<input id="nama" class="easyui-textbox" label="Nama Lengkap:" prompt="Full name" style="width:100%">
+		</div>
+		<div style="margin-bottom:10px">
+			<input id="cc" name="dept" value="aa">
+		</div>
+
+		<div style="margin-bottom:10px">
+			<input class="easyui-datebox" label="Tgl Lahir:" prompt="Birthday" data-options="editable:false,panelWidth:220,panelHeight:240,iconWidth:30" style="width:100%">
+		</div>
+		<div style="margin-bottom:10px">
+			<input class="easyui-numberbox" label="No HP:" prompt="Number" style="width:100%">
+		</div>
+		
+		<div style="text-align:center;margin-top:30px">
+			<a id="btnRegister" href="#" class="easyui-linkbutton" plain="true" outline="true" style="width:100px;height:35px"><span style="font-size:16px">Register</span></a> 
+		</div>
+	</form>
+	<script>
+		$(document).ready(function(){
+			$("#btnRegister").click(function(){
+				$.post("http://localhost/rest/index.php/kontak",
+				{
+					nama: $('#nama').val(),
+					nomor: "Duckburg"
+				},
+				function(data){
+					console.log(data);
+					alert(data.nama);
+					//alert("Data: " + data + "\nStatus: " + status);
+				});
+			});
+			$('#cc').combobox({
+				url:'http://localhost/rest/index.php/skema',
+				valueField:'id',
+				textField:'text',
+				method:'get'
+			});
+		});
+	</script>
+</body>
+</html>
