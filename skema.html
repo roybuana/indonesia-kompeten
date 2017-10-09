@@ -11,6 +11,16 @@
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="jquery.easyui.min.js"></script>
     <script type="text/javascript" src="jquery.easyui.mobile.js"></script>
+    <script type="text/javascript">
+        var base_url = "http://" + location.host + "/lsp_mobile/";
+        var remote_url = "http://" + location.host + "/rest/";
+
+        $.urlParam = function (name) {
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            return results[1] || 0;
+        }
+
+    </script>
 </head>
 <body>
     <div class="easyui-navpanel">
@@ -23,21 +33,27 @@
                 
             </div>
         </header>
-         <table class="easyui-datagrid" title="Data Skema Sertifikasi" style="width:700px;"
-    data-options="singleSelect:true,collapsible:true,url:'http://localhost/rest/index.php/skema',method:'get',pagination:true">
-    <thead>
-        <tr>
-            <th data-options="field:'id',width:80">Nama Skema</th>
-            <th data-options="field:'jumlah_unit',width:100">Jumlah Unit</th>
-            <th data-options="field:'biaya_skema',width:80,align:'right'">Biaya</th>
-        </tr>
-    </thead>
-</table> 
+         <table id="dg"></table>
         <footer style="padding:2px 3px">
             <input class="easyui-textbox" style="width:100%;height:32px;" data-options="prompt:'Pencarian Skema',buttonText:'<span style=\'padding:0 15px\'>Search</span>'">
         </footer>
     </div>
-
+<script type="text/javascript">
+    $(function () {
+        $('#dg').datagrid({
+            url: remote_url + '/index.php/skema',
+            rownumbers: true,
+            method: 'get',
+            columns: [[
+                    {field: 'skema', title: 'Skema Sertifikasi', width: 200},
+                    {field: 'jumlah_unit', title: 'Unit', width: 'auto',align:'center'},
+                    {field: 'biaya_skema', title: 'Biaya', width: 'auto',align:'center'},
+                ]],
+            pagination: true,
+            pageSize: 10
+        });
+    })
+</script>
 
 
 </body>
