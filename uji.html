@@ -1,75 +1,243 @@
-<div class="content_mobile" style="padding:0 20px">
-    <h2>REGISTRASI UJI KOMPETENSI</h2>
-    <form id="ff">
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <div style="margin-bottom:10px">
-            <input id="cc" name="skema" value="aa" label='Skema:' style="width:100%;">
-        </div>
-        
-        <div style="margin-bottom:10px">
-            <input id="no_identitas" class="easyui-textbox" name="no_identitas" label="No. Identitas :" prompt="No. Identitas" style="width:100%" />
-        </div>
-        
-        <div style="margin-bottom:10px">
-            <input id="nama" class="easyui-textbox" name="nama" label="Nama Lengkap:" prompt="Full name" style="width:100%" />
-        </div>
-        
-        <div style="margin-bottom:10px">
-            <input id="organisasi" class="easyui-textbox" name="organisasi" label="Organisasi:" prompt="Organisasi" style="width:100%" />
-        </div>
-        
-        <div style="margin-bottom:10px">
-            <input class="easyui-datebox" name="tgl_lahir" label="Tgl Lahir:" prompt="Birthday" data-options="editable:false,panelWidth:220,panelHeight:240,iconWidth:30" style="width:100%" />
-        </div>
+        <title>Menubar - jQuery EasyUI Mobile Demo</title>
 
-        <div style="margin-bottom:10px">
-            <input class="easyui-textbox" label="No HP:" name='no_telp' prompt="Number" style="width:100%">
-        </div>
-        
-        <div style="margin-bottom:10px">
-            <input class="easyui-textbox" label="Email:" name='email' prompt="Email" style="width:100%">
-        </div>
-        
-        <div style="margin-bottom:10px">
-            <input id="jadwal" name="jadwal" value="Jadwal Uji" label='Jadwal Uji:' style="width:100%;">
-        </div>
-        
-        <div style="text-align:center;margin-top:30px">
-            <a id="tombolRegister" href="javascript:void(0)">Daftar</a>
-        </div>
+        <link rel="stylesheet" type="text/css" href="themes/metro/easyui.css">
+        <link rel="stylesheet" type="text/css" href="themes/mobile.css">
+        <link rel="stylesheet" type="text/css" href="themes/icon.css">
 
-    </form>
+        <script type="text/javascript" src="jquery.min.js"></script>
 
-</div>
+        <script type="text/javascript">
+            var base_url = "http://" + location.host + "/lsp_mobile/";
+            var remote_url = "http://" + location.host + "/rest/";
 
-<script>
-    $(document).ready(function () {
-        
-        $("#tombolRegister").linkbutton({
-            width: '100%',
-            heigth: '40px',
-            size: 'large',
-            iconCls: 'icon-save',
-            onClick: function (data) {
-                var dtform = $("#ff").serializeArray();
-                console.log(dtform);
-                //$.messager.alert('Warning', kode_lsp);
+            $.urlParam = function (name) {
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                return results[1] || 0;
             }
-        });
 
-        $('#cc').combobox({
-            url: remote_url + 'index.php/skema',
-            valueField: 'id',
-            textField: 'text',
-            method: 'get'
-        });
-        
-        $('#jadwal').combobox({
-            url: remote_url + 'index.php/jadwal/combo_get',
-            valueField: 'id',
-            textField: 'text',
-            method: 'get'
-        });
-    });
+        </script>
 
-</script>
+        <style>
+            .asterisk{
+                color:red;
+                font-weight: bold;
+            }
+            .buktitam h3{
+                text-decoration: underline;
+            }
+            .box{
+                padding: 10px;
+                border-bottom: 1px solid #ccc;
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <!-- Step 1 //-->
+        <div class="easyui-navpanel">
+            <header>
+                <div class="m-toolbar">
+                    <div class="m-left">
+                        <a href="#" class="easyui-linkbutton m-back" data-options="plain:true,outline:true,back:true">Back</a>
+                    </div>
+                    <div class="m-title">APL - 01</div>
+                </div>
+            </header>
+
+
+            <!-- FORM STEP 1 //-->
+            <div class="content_mobile" style="padding:0 20px">
+
+                <h2>REGISTRASI UJI KOMPETENSI</h2>
+
+                <form id="ff">
+                    <div style="margin-bottom:10px">
+                        <input id="cc" name="skema" value="aa" label='Skema:' style="width:100%;">
+                    </div>
+
+                    <div style="margin-bottom:10px">
+                        <input id="no_identitas" class="easyui-textbox" name="no_identitas" label="No. Identitas :" prompt="No. Identitas" style="width:100%" />
+                    </div>
+
+                    <div style="margin-bottom:10px">
+                        <input id="nama" class="easyui-textbox" name="nama" label="Nama Lengkap:" prompt="Full name" style="width:100%" />
+                    </div>
+
+                    <div style="margin-bottom:10px">
+                        <input id="organisasi" class="easyui-textbox" name="organisasi" label="Organisasi:" prompt="Organisasi" style="width:100%" />
+                    </div>
+
+                    <div style="margin-bottom:10px">
+                        <input class="easyui-datebox" name="tgl_lahir" label="Tgl Lahir:" prompt="Birthday" data-options="editable:false,panelWidth:220,panelHeight:240,iconWidth:30" style="width:100%" />
+                    </div>
+
+                    <div style="margin-bottom:10px">
+                        <input class="easyui-textbox" label="No HP:" name='no_telp' prompt="Number" style="width:100%">
+                    </div>
+
+                    <div style="margin-bottom:10px">
+                        <input class="easyui-textbox" label="Email:" name='email' prompt="Email" style="width:100%">
+                    </div>
+
+                    <div style="margin-bottom:10px">
+                        <input id="jadwal" name="jadwal" value="Jadwal Uji" label='Jadwal Uji:' style="width:100%;">
+                    </div>
+
+                    <div style="text-align:center;margin-top:30px">
+                        <a id="tombolRegister" href="#p2">Step 2 >></a>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Step 2 //-->
+        <div id="p2" class="easyui-navpanel">
+            <header>
+                <div class="m-toolbar">
+                    <div class="m-left">
+                        <a href="#" class="easyui-linkbutton m-back" data-options="plain:true,outline:true,back:true">Back</a>
+                    </div>
+                    <div class="m-title">Upload Dokumen Bukti</div>
+                </div>
+            </header>
+
+            <div style="padding: 0 10px;margin-top: 10px;">
+                <div style="margin-bottom:10px">
+                    <label>Foto <span class="asterisk">(*)</span></label>
+                    <input id="foto" class="easyui-filebox" name="foto" prompt="Foto" style="width:100%" />
+                </div>
+
+                <div style="margin-bottom:10px">
+                    <label>KTP <span class="asterisk">(*)</span></label>
+                    <input id="ktp" class="easyui-filebox" name="ktp" prompt="KTP" style="width:100%" />
+                </div>
+
+                <div style="margin-bottom:10px">
+                    <label>Ijazah <span class="asterisk">(*)</span></label>
+                    <input id="ijazah" class="easyui-filebox" name="ijazah" prompt="Ijazah" style="width:100%" />
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;"></div>
+            <div style="padding: 0 10px;margin-top: 10px;" class="buktitam">
+                <h3>Upload Bukti Tambahan / Lainnya</h3>
+                <div style="margin-bottom:10px">
+                    <label>Nama Dokumen <span class="asterisk">(*)</span></label>
+                    <input id="nama_dokumen" class="easyui-textbox" name="nama_dokumen" prompt="Nama Dokumen" style="width:100%" />
+                </div>
+                <div style="margin-bottom:10px">
+                    <input id="dokumen" class="easyui-filebox" name="dokumen" prompt="Dokumen" style="width:100%" />
+                </div>
+            </div>
+
+            <div style="padding: 0 10px;margin-top: 10px;">
+                <div style="text-align:center;margin-top:30px">
+                    <a id="step2" href="#p3">Step 3 >></a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Step 3 //-->
+        <div id="p3" class="easyui-navpanel">
+            <header>
+                <div class="m-toolbar">
+                    <div class="m-left">
+                        <a href="#" class="easyui-linkbutton m-back" data-options="plain:true,outline:true,back:true">Back</a>
+                    </div>
+                    <div class="m-title">Asesmen Mandiri</div>
+                </div>
+            </header>
+
+            <div style="padding: 0 10px;margin-top: 10px;">
+
+                <div class="box">
+                    Kode Unit<br/>
+                    Judul Unit<br/>
+                    <input class="easyui-switchbutton" data-options="onText:'K',offText:'BK'"/><br/>
+                    Bukti Pendukung
+                </div>
+                
+            </div>
+
+            <div style="padding: 0 10px;margin-top: 10px;">
+
+            </div>
+
+            <div style="padding: 0 10px;margin-top: 10px;">
+                <div style="text-align:center;margin-top:30px">
+                    <a id="step3" href="#p4">Selesai & Kirim</a>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script type="text/javascript" src="jquery.easyui.min.js"></script>
+        <script type="text/javascript" src="jquery.easyui.mobile.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $("#tombolRegister").linkbutton({
+                    width: '100%',
+                    heigth: '40px',
+                    size: 'large',
+                    onClick: function (data) {
+                        var dtform = $("#ff").serializeArray();
+                        console.log(dtform);
+                        //$.messager.alert('Warning', kode_lsp);
+                    }
+                });
+
+                $("#step2").linkbutton({
+                    width: '100%',
+                    heigth: '40px',
+                    size: 'large',
+                    onClick: function (data) {
+                        var dtform = $("#ff").serializeArray();
+                        console.log(dtform);
+                        //$.messager.alert('Warning', kode_lsp);
+                    }
+                });
+
+                $("#step3").linkbutton({
+                    width: '100%',
+                    heigth: '40px',
+                    size: 'large',
+                    onClick: function (data) {
+                        var dtform = $("#ff").serializeArray();
+                        console.log(dtform);
+                        //$.messager.alert('Warning', kode_lsp);
+                    }
+                });
+
+                $('#cc').combobox({
+                    url: remote_url + 'index.php/skema',
+                    valueField: 'id',
+                    textField: 'text',
+                    method: 'get'
+                });
+
+                $('#jadwal').combobox({
+                    url: remote_url + 'index.php/jadwal/combo_get',
+                    valueField: 'id',
+                    textField: 'text',
+                    method: 'get'
+                });
+            });
+
+        </script>
+
+
+    </body>
+</html>
