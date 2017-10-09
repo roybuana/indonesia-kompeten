@@ -3,21 +3,37 @@
     <form id="ff">
 
         <div style="margin-bottom:10px">
-            <input id="nama" class="easyui-textbox" label="Nama Lengkap:" prompt="Full name" style="width:100%" />
+            <input id="cc" name="skema" value="aa" label='Skema:' style="width:100%;">
+        </div>
+        
+        <div style="margin-bottom:10px">
+            <input id="no_identitas" class="easyui-textbox" name="no_identitas" label="No. Identitas :" prompt="No. Identitas" style="width:100%" />
+        </div>
+        
+        <div style="margin-bottom:10px">
+            <input id="nama" class="easyui-textbox" name="nama" label="Nama Lengkap:" prompt="Full name" style="width:100%" />
+        </div>
+        
+        <div style="margin-bottom:10px">
+            <input id="organisasi" class="easyui-textbox" name="organisasi" label="Organisasi:" prompt="Organisasi" style="width:100%" />
+        </div>
+        
+        <div style="margin-bottom:10px">
+            <input class="easyui-datebox" name="tgl_lahir" label="Tgl Lahir:" prompt="Birthday" data-options="editable:false,panelWidth:220,panelHeight:240,iconWidth:30" style="width:100%" />
         </div>
 
         <div style="margin-bottom:10px">
-            <input id="cc" name="dept" value="aa" label='Skema:' style="width:100%;">
+            <input class="easyui-textbox" label="No HP:" name='no_telp' prompt="Number" style="width:100%">
         </div>
-
+        
         <div style="margin-bottom:10px">
-            <input class="easyui-datebox" label="Tgl Lahir:" prompt="Birthday" data-options="editable:false,panelWidth:220,panelHeight:240,iconWidth:30" style="width:100%" />
+            <input class="easyui-textbox" label="Email:" name='email' prompt="Email" style="width:100%">
         </div>
-
+        
         <div style="margin-bottom:10px">
-            <input class="easyui-textbox" label="No HP:" prompt="Number" style="width:100%">
+            <input id="jadwal" name="jadwal" value="Jadwal Uji" label='Jadwal Uji:' style="width:100%;">
         </div>
-
+        
         <div style="text-align:center;margin-top:30px">
             <a id="tombolRegister" href="javascript:void(0)">Daftar</a>
         </div>
@@ -28,38 +44,28 @@
 
 <script>
     $(document).ready(function () {
-        $('#btnRegister').linkbutton({
+        
+        $("#tombolRegister").linkbutton({
             width: '100%',
             heigth: '40px',
-            size: 'large'
+            size: 'large',
+            iconCls: 'icon-save',
+            onClick: function (data) {
+                var dtform = $("#ff").serializeArray();
+                console.log(dtform);
+                //$.messager.alert('Warning', kode_lsp);
+            }
         });
-
-        $("#tombolRegister").linkbutton({
-                    iconCls: 'icon-save',
-                     onClick:function(data){
-                         $.messager.alert('Warning', 'dasdasdasdas');
-                    }
-                });
-
-        $("div #btnRegister").on('click', function () {
-            var dtform = $("#ff").serializeArray();
-            dtform['kode_lsp'] = kode_lsp;
-            $.messager.alert('Warning', kode_lsp);
-            console.log(dtform);
-
-            /*
-             $.post(remote_url + "index.php/kontak", dtform,
-             function (data) {
-             console.log(data);
-             $.messager.alert('Warning', data.nama + " & " + kode_lsp);
-             //alert("Data: " + data + "\nStatus: " + status);
-             });
-             */
-        });
-
 
         $('#cc').combobox({
             url: remote_url + 'index.php/skema',
+            valueField: 'id',
+            textField: 'text',
+            method: 'get'
+        });
+        
+        $('#jadwal').combobox({
+            url: remote_url + 'index.php/jadwal/combo_get',
             valueField: 'id',
             textField: 'text',
             method: 'get'
