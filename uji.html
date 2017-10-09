@@ -19,7 +19,7 @@
         </div>
 
         <div style="text-align:center;margin-top:30px">
-            <a id="btnRegister" href="javascript:void(0)">Register</a>
+            <a id="tombolRegister" href="javascript:void(0)">Daftar</a>
         </div>
 
     </form>
@@ -34,6 +34,12 @@
             size: 'large'
         });
 
+        $("#tombolRegister").linkbutton({
+                    iconCls: 'icon-save',
+                     onClick:function(data){
+                         $.messager.alert('Warning', 'dasdasdasdas');
+                    }
+                });
 
         $("div #btnRegister").on('click', function () {
             var dtform = $("#ff").serializeArray();
@@ -59,4 +65,5 @@
             method: 'get'
         });
     });
+
 </script>
