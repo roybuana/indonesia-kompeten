@@ -1,46 +1,30 @@
-<style>
-    #ff{
-        background-color: #0099FF;
-    }
-</style>
+<div class="content_mobile" style="padding:0 20px">
+    <h2>REGISTRASI UJI KOMPETENSI</h2>
+    <form id="ff">
 
-<h2>REGISTRASI UJI KOMPETENSI</h2>
-<form id="ff">
+        <div style="margin-bottom:10px">
+            <input id="nama" class="easyui-textbox" label="Nama Lengkap:" prompt="Full name" style="width:100%" />
+        </div>
 
-    <div style="margin-bottom:10px">
-        <!--
-        <input id="nama" class="easyui-textbox" label="Nama Lengkap:" prompt="Full name" style="width:100%">
-        //-->
-        Full Name
-    </div>
-    <div style="margin-bottom:10px">
-        <!--
-        <input id="cc" name="dept" value="aa">
-        //-->
-        Dept
-    </div>
+        <div style="margin-bottom:10px">
+            <input id="cc" name="dept" value="aa" label='Skema:' style="width:100%;">
+        </div>
 
-    <div style="margin-bottom:10px">
-        <!--
-        <input class="easyui-datebox" label="Tgl Lahir:" prompt="Birthday" data-options="editable:false,panelWidth:220,panelHeight:240,iconWidth:30" style="width:100%" />
-        //-->
-        Birthday
-    </div>
-    <div style="margin-bottom:10px">
-        <!--
-        <input class="easyui-numberbox" label="No HP:" prompt="Number" style="width:100%">
-        //-->
-        Number
-    </div>
+        <div style="margin-bottom:10px">
+            <input class="easyui-datebox" label="Tgl Lahir:" prompt="Birthday" data-options="editable:false,panelWidth:220,panelHeight:240,iconWidth:30" style="width:100%" />
+        </div>
 
-    <div style="text-align:center;margin-top:30px">
-        <!--
-        <a id="btnRegister" href="#" class="easyui-linkbutton" plain="true" outline="true" style="width:100px;height:35px"><span style="font-size:16px">Register</span></a>
-        //-->
-        Button Register
-    </div>
+        <div style="margin-bottom:10px">
+            <input class="easyui-numberbox" label="No HP:" prompt="Number" style="width:100%">
+        </div>
 
-</form>
+        <div style="text-align:center;margin-top:30px">
+            <a id="btnRegister" href="#" class="easyui-linkbutton" plain="true" outline="true" style="width:100px;height:35px"><span style="font-size:16px">Register</span></a>
+        </div>
+
+    </form>
+
+</div>
 
 <script>
     $(document).ready(function () {
