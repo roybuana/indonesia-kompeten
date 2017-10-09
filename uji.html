@@ -15,11 +15,11 @@
         </div>
 
         <div style="margin-bottom:10px">
-            <input class="easyui-numberbox" label="No HP:" prompt="Number" style="width:100%">
+            <input class="easyui-textbox" label="No HP:" prompt="Number" style="width:100%">
         </div>
 
         <div style="text-align:center;margin-top:30px">
-            <a id="btnRegister" href="#" class="easyui-linkbutton" plain="true" outline="true" style="width:100px;height:35px"><span style="font-size:16px">Register</span></a>
+            <a id="btnRegister" href="javascript:void(0)">Register</a>
         </div>
 
     </form>
@@ -28,18 +28,29 @@
 
 <script>
     $(document).ready(function () {
-        $("#btnRegister").click(function () {
-            $.post(remote_url + "index.php/kontak",
-                    {
-                        nama: $('#nama').val(),
-                        nomor: "Duckburg"
-                    },
-                    function (data) {
-                        console.log(data);
-                        alert(data.nama);
-                        //alert("Data: " + data + "\nStatus: " + status);
-                    });
+        $('#btnRegister').linkbutton({
+            width: '100%',
+            heigth: '40px',
+            size: 'large'
         });
+
+
+        $("div #btnRegister").on('click', function () {
+            var dtform = $("#ff").serializeArray();
+            dtform['kode_lsp'] = kode_lsp;
+            $.messager.alert('Warning', kode_lsp);
+            console.log(dtform);
+
+            /*
+             $.post(remote_url + "index.php/kontak", dtform,
+             function (data) {
+             console.log(data);
+             $.messager.alert('Warning', data.nama + " & " + kode_lsp);
+             //alert("Data: " + data + "\nStatus: " + status);
+             });
+             */
+        });
+
 
         $('#cc').combobox({
             url: remote_url + 'index.php/skema',
