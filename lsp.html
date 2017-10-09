@@ -1,0 +1,21 @@
+<div class="content_mobile" style="padding:0 20px">
+    <h2>LEMBAGA SERTIFIKASI PROFESI</h2>
+    <table id="dg"></table>
+
+</div>
+<script type="text/javascript">
+    $(function(){
+        $('#dg').datagrid({
+            url:'http://localhost/rest/index.php/lsp',
+            rownumbers: true,
+            method:'get',
+            columns:[[
+            {field:'id',title:'Kode',width:50},
+            {field:'lsp',title:'Nama LSP',width:'auto'},
+            
+            ]],
+            pagination:true,
+            pageSize : 10
+        });
+    })
+</script>
