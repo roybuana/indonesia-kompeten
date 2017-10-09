@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Menubar - jQuery EasyUI Mobile Demo</title>
+
+        <link rel="stylesheet" type="text/css" href="themes/metro/easyui.css">
+        <link rel="stylesheet" type="text/css" href="themes/mobile.css">
+        <link rel="stylesheet" type="text/css" href="themes/icon.css">
+
+        <script type="text/javascript" src="jquery.min.js"></script>
+
+        <script type="text/javascript">
+            var base_url = "http://" + location.host + "/lsp_mobile/";
+            var remote_url = "http://" + location.host + "/rest/";
+
+            $.urlParam = function (name) {
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                return results[1] || 0;
+            }
+
+        </script>
+    </head>
+    <body>
+        <div id="panelBody" class="easyui-navpanel" data-options="href:'start.html'">
+            <header>
+                <div class="m-toolbar">
+                    <div class="m-title">
+                        <a href="index.html" class="easyui-linkbutton" data-options="plain:true,outline:true" style="width:70px">Home</a>
+                        <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#mm1',outline:true" style="width:70px">LSP</a>  
+                        <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#mm2',outline:true" style="width:75px">Help</a>  
+                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,outline:true" style="width:70px">About</a>  
+                    </div>
+                </div>
+
+                <div id="mm1" class="easyui-menu" data-options="onClick:showContent" style="width:auto;">
+                    <div data-options="iconCls:'icon-undo',url:'uji.html'">Uji Kompetensi</div>
+                    <div data-options="iconCls:'icon-redo',url:'lsp.html'">LSP</div>
+                    <div class="menu-sep"></div>
+                    <div data-options="iconCls:'icon-redo',url:'tuk.html'">Tempat Uji Kompetensi</div>
+                    <div data-options="iconCls:'icon-redo',url:'asesor.html'">Asesor Kompetensi</div>
+
+                </div>
+                <div id="mm2" style="width:100px;">  
+                    <div>Help</div>  
+                    <div>Update</div>  
+                    <div>About</div>
+                </div>
+            </header>
+
+
+        </div>
+
+        <script type="text/javascript" src="jquery.easyui.min.js"></script>
+        <script type="text/javascript" src="jquery.easyui.mobile.js"></script>
+
+
+        <script type="text/javascript">
+
+            var kode_lsp = $.urlParam('kode_lsp');
+
+            function showContent(item) {
+                $('#panelBody').panel('open').panel('refresh', item.url);
+                return false;
+            }
+
+        </script>
+
+    </body>
+</html>
