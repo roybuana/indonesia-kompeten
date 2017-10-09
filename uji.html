@@ -1,12 +1,12 @@
 <style>
-    form{
-        background: #0099FF;
+    #ff{
+        background-color: #0099FF;
     }
 </style>
 
 <h2>REGISTRASI UJI KOMPETENSI</h2>
 <form id="ff">
-    
+
     <div style="margin-bottom:10px">
         <!--
         <input id="nama" class="easyui-textbox" label="Nama Lengkap:" prompt="Full name" style="width:100%">
@@ -39,7 +39,7 @@
         //-->
         Button Register
     </div>
-    
+
 </form>
 
 <script>
@@ -56,7 +56,7 @@
                         //alert("Data: " + data + "\nStatus: " + status);
                     });
         });
-        
+
         $('#cc').combobox({
             url: remote_url + 'index.php/skema',
             valueField: 'id',
