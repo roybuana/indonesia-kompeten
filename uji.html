@@ -208,15 +208,15 @@
                             }
                         });
 
-                        $("#tombolRegister").attr('href', '#p2');
-                        /*
-                         if (no == parseInt(jmlIsi)) {
-                         //window.location = "#p2";
-                         $("#tombolRegister").attr('href', '#p2');
-                         } else {
-                         $.messager.alert("Pesan", "Data harus diisi semua !");
-                         }
-                         */
+                        //$("#tombolRegister").attr('href', '#p2');
+
+                        if (no == parseInt(jmlIsi)) {
+                            //window.location = "#p2";
+                            $("#tombolRegister").attr('href', '#p2');
+                        } else {
+                            $.messager.alert("Pesan", "Data harus diisi semua !");
+                        }
+
                         return false;
                     }
                 });
@@ -226,9 +226,11 @@
                     heigth: '40px',
                     size: 'large',
                     onClick: function (data) {
+                        $("#step2").hide();
                         var dtform = $("#ff").serializeArray();
                         var idskema = dtform[0].value;
-                        console.log(remote_url + 'index.php/unit_skema/index/' + kode_lsp);
+                        $("#step2").attr('href', '#p3');
+                        //console.log(remote_url + 'index.php/unit_skema/index/' + kode_lsp);
                         getUnitskema(idskema);
                     }
                 });
@@ -239,17 +241,28 @@
                         data: {id: idskema},
                         success: function (hsl) {
                             var hasil = JSON.parse(hsl);
-                            console.log(hasil);
-                            $("#step2").attr('href', '#p3');
+
                             $.each(hasil, function (key, dt) {
-                                console.log(dt);
+                                //console.log(dt);
                                 var item = '<div class="box">';
                                 item += dt.id_unit_kompetensi + '<br/>';
                                 item += dt.unit_kompetensi + '<br/>';
-                                item += '<input class="easyui-switchbutton" data-options="onText:\'K\',offText:\'BK\'"/><br/>';
+                                item += '<input class="bk"><br/>';
                                 item += '<select name="bukti_pendukung[]" class="bukti_pendukung"></select></div>';
                                 $("#boxAsesmen").append(item);
+
+                                $('.bk').switchbutton({
+                                    onText: 'K',
+                                    offText: 'BK'
+                                });
                             });
+
+                            var itemOp = "";
+                            $.each($(".uploadData"), function (key, dt) {
+                                console.log(dt.value);
+                                itemOp += "<option value='" + dt.value + "'>" + dt.value + "</option>";
+                            });
+                            $(".bukti_pendukung").append(itemOp);
                         }
                     });
                 }
