@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <title>Menubar - jQuery EasyUI Mobile Demo</title>
+        <title>Indonesia Kompeten</title>
 
         <link rel="stylesheet" type="text/css" href="themes/metro/easyui.css">
         <link rel="stylesheet" type="text/css" href="themes/mobile.css">
@@ -21,6 +21,7 @@
                 return results[1] || 0;
             }
 
+            var kode_lsp = $.urlParam('kode_lsp');
         </script>
 
         <style>
@@ -91,7 +92,8 @@
                     </div>
 
                     <div style="text-align:center;margin-top:30px">
-                        <a id="tombolRegister" href="#p2">Step 2 >></a>
+                        <a id="tombolRegister" href="javascript:void(0)">Step 2 >></a>
+                        <!--#p2//-->
                     </div>
 
                 </form>
@@ -110,41 +112,42 @@
                 </div>
             </header>
 
-            <div style="padding: 0 10px;margin-top: 10px;">
-                <div style="margin-bottom:10px">
-                    <label>Foto <span class="asterisk">(*)</span></label>
-                    <input id="foto" class="easyui-filebox" name="foto" prompt="Foto" style="width:100%" />
+            <form id="ff2" enctype="multipart/form-data">
+                <div style="padding: 0 10px;margin-top: 10px;">
+                    <div style="margin-bottom:10px" id="dtfoto">
+                        <label>Foto <span class="asterisk">(*)</span></label>
+                        <input id="foto" name="foto" prompt="Foto" style="width:100%">
+                    </div>
+
+                    <div style="margin-bottom:10px" id="dtktp">
+                        <label>KTP <span class="asterisk">(*)</span></label>
+                        <input id="ktp" name="ktp" prompt="KTP" style="width:100%" />
+                    </div>
+
+                    <div style="margin-bottom:10px" id="dtijazah">
+                        <label>Ijazah <span class="asterisk">(*)</span></label>
+                        <input id="ijazah" name="ijazah" prompt="Ijazah" style="width:100%" />
+                    </div>
                 </div>
 
-                <div style="margin-bottom:10px">
-                    <label>KTP <span class="asterisk">(*)</span></label>
-                    <input id="ktp" class="easyui-filebox" name="ktp" prompt="KTP" style="width:100%" />
+                <div style="margin-bottom: 20px;"></div>
+                <div style="padding: 0 10px;margin-top: 10px;" class="buktitam">
+                    <h3>Upload Bukti Tambahan / Lainnya</h3>
+                    <div style="margin-bottom:10px">
+                        <label>Nama Dokumen <span class="asterisk">(*)</span></label>
+                        <input id="nama_dokumen" class="easyui-textbox" name="nama_dokumen" prompt="Nama Dokumen" style="width:100%" />
+                    </div>
+                    <div style="margin-bottom:10px" id="dtdokumen">
+                        <input id="dokumen" name="dokumen" prompt="Dokumen" style="width:100%" />
+                    </div>
                 </div>
 
-                <div style="margin-bottom:10px">
-                    <label>Ijazah <span class="asterisk">(*)</span></label>
-                    <input id="ijazah" class="easyui-filebox" name="ijazah" prompt="Ijazah" style="width:100%" />
+                <div style="padding: 0 10px;margin-top: 10px;">
+                    <div style="text-align:center;margin-top:30px">
+                        <a id="step2" href="javascript:void(0)">Step 3 >></a>
+                    </div>
                 </div>
-            </div>
-
-            <div style="margin-bottom: 20px;"></div>
-            <div style="padding: 0 10px;margin-top: 10px;" class="buktitam">
-                <h3>Upload Bukti Tambahan / Lainnya</h3>
-                <div style="margin-bottom:10px">
-                    <label>Nama Dokumen <span class="asterisk">(*)</span></label>
-                    <input id="nama_dokumen" class="easyui-textbox" name="nama_dokumen" prompt="Nama Dokumen" style="width:100%" />
-                </div>
-                <div style="margin-bottom:10px">
-                    <input id="dokumen" class="easyui-filebox" name="dokumen" prompt="Dokumen" style="width:100%" />
-                </div>
-            </div>
-
-            <div style="padding: 0 10px;margin-top: 10px;">
-                <div style="text-align:center;margin-top:30px">
-                    <a id="step2" href="#p3">Step 3 >></a>
-                </div>
-            </div>
-
+            </form>
         </div>
 
         <!-- Step 3 //-->
@@ -158,15 +161,17 @@
                 </div>
             </header>
 
-            <div style="padding: 0 10px;margin-top: 10px;">
+            <div style="padding: 0 10px;margin-top: 10px;" id="boxAsesmen">
 
+                <!--
                 <div class="box">
                     Kode Unit<br/>
                     Judul Unit<br/>
                     <input class="easyui-switchbutton" data-options="onText:'K',offText:'BK'"/><br/>
                     Bukti Pendukung
                 </div>
-                
+                //-->
+
             </div>
 
             <div style="padding: 0 10px;margin-top: 10px;">
@@ -194,8 +199,25 @@
                     size: 'large',
                     onClick: function (data) {
                         var dtform = $("#ff").serializeArray();
-                        console.log(dtform);
-                        //$.messager.alert('Warning', kode_lsp);
+                        var jmlIsi = dtform.length;
+
+                        var no = 0;
+                        $.each(dtform, function (key, dt) {
+                            if (dt.value !== "") {
+                                no++;
+                            }
+                        });
+
+                        $("#tombolRegister").attr('href', '#p2');
+                        /*
+                         if (no == parseInt(jmlIsi)) {
+                         //window.location = "#p2";
+                         $("#tombolRegister").attr('href', '#p2');
+                         } else {
+                         $.messager.alert("Pesan", "Data harus diisi semua !");
+                         }
+                         */
+                        return false;
                     }
                 });
 
@@ -205,10 +227,32 @@
                     size: 'large',
                     onClick: function (data) {
                         var dtform = $("#ff").serializeArray();
-                        console.log(dtform);
-                        //$.messager.alert('Warning', kode_lsp);
+                        var idskema = dtform[0].value;
+                        console.log(remote_url + 'index.php/unit_skema/index/' + kode_lsp);
+                        getUnitskema(idskema);
                     }
                 });
+
+                function getUnitskema(idskema) {
+                    $.ajax({
+                        url: remote_url + 'index.php/unit_skema/index/' + kode_lsp,
+                        data: {id: idskema},
+                        success: function (hsl) {
+                            var hasil = JSON.parse(hsl);
+                            console.log(hasil);
+                            $("#step2").attr('href', '#p3');
+                            $.each(hasil, function (key, dt) {
+                                console.log(dt);
+                                var item = '<div class="box">';
+                                item += dt.id_unit_kompetensi + '<br/>';
+                                item += dt.unit_kompetensi + '<br/>';
+                                item += '<input class="easyui-switchbutton" data-options="onText:\'K\',offText:\'BK\'"/><br/>';
+                                item += '<select name="bukti_pendukung[]" class="bukti_pendukung"></select></div>';
+                                $("#boxAsesmen").append(item);
+                            });
+                        }
+                    });
+                }
 
                 $("#step3").linkbutton({
                     width: '100%',
@@ -216,24 +260,133 @@
                     size: 'large',
                     onClick: function (data) {
                         var dtform = $("#ff").serializeArray();
-                        console.log(dtform);
-                        //$.messager.alert('Warning', kode_lsp);
+                        var dtform2 = $("#ff2").serializeArray();
+                        console.log(dtform[0].value);
+
+                        /*
+                         $.get(remote_url + 'unit_skema/index/' + kode_lsp + '?id=' + idskema, function (key, data) {
+                         console.log(data);
+                         });
+                         */
+
                     }
                 });
 
                 $('#cc').combobox({
-                    url: remote_url + 'index.php/skema',
+                    url: remote_url + 'index.php/combo_skema/' + kode_lsp,
                     valueField: 'id',
                     textField: 'text',
                     method: 'get'
                 });
 
                 $('#jadwal').combobox({
-                    url: remote_url + 'index.php/jadwal/combo_get',
+                    url: remote_url + 'index.php/jadwal/combo?kode_lsp=' + kode_lsp,
                     valueField: 'id',
                     textField: 'text',
                     method: 'get'
                 });
+
+                $("#nama_dokumen").combobox({
+                    data: [{name: '', value: '- Nama Dokumen -'}, {name: 'foto', value: 'Foto'}, {name: 'ktp', value: 'KTP'}, {name: 'ijazah', value: 'Ijazah'}, {name: 'skkd', value: 'Surat Keterangan Keaslian Dok.'}, {name: 'cp', value: 'Contoh / Report Pekerjaan (CP)'}, {name: 'surat_pelatihan', value: 'Sertifikat Pelatihan (SK)'}, {name: 'surat_referensi', value: 'Surat Referensi dari Perusahaan'}, {name: 'job_description', value: 'Job Description (JD)'}, {name: 'demonstrasi_pekerjaan', value: 'Demonstrasi Pekerjaan (De)'}, {name: 'wawancara_supervisor', value: 'Wawancara dg. Supervisor, teman atau klien'}, {name: 'pengalaman_industri', value: 'Pengalaman Industri (Pe)'}, {name: 'bukti_relevan', value: 'Bukti-Bukti Lain yang Masih Relevan / CV'}, {name: 'sertifikat_expired', value: 'Sertifikat Expired'}],
+                    valueField: 'name',
+                    textField: 'value'
+                });
+
+                // Upload Dokumen
+                $('#foto').filebox({
+                    onChange: function (data) {
+                        var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp;
+                        //$.messager.alert("Title", urlTarget);
+                        var f = $("input[name=foto]");
+                        var listFiles = f[0].files;
+                        var formData = new FormData();
+                        formData.append('file', listFiles[0]);
+
+                        $.ajax({
+                            url: urlTarget,
+                            type: 'POST',
+                            data: formData,
+                            processData: false, // tell jQuery not to process the data
+                            contentType: false, // tell jQuery not to set contentType
+                            success: function (data) {
+                                data = JSON.parse(data);
+                                var txt = "<input name='file_data[]' class='easyui-textbox uploadData' value='" + data.upload_data.file_name + "' readonly />";
+                                $("#dtfoto").append(txt);
+                            }
+                        });
+                    }
+                });
+
+                $('#ktp').filebox({
+                    onChange: function (data) {
+                        var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp;
+                        var f = $("input[name=ktp]");
+                        var listFiles = f[0].files;
+                        var formData = new FormData();
+                        formData.append('file', listFiles[0]);
+
+                        $.ajax({
+                            url: urlTarget,
+                            type: 'POST',
+                            data: formData,
+                            processData: false, // tell jQuery not to process the data
+                            contentType: false, // tell jQuery not to set contentType
+                            success: function (data) {
+                                data = JSON.parse(data);
+                                var txt = "<input name='file_data[]' class='easyui-textbox uploadData' value='" + data.upload_data.file_name + "' readonly />";
+                                $("#dtktp").append(txt);
+                            }
+                        });
+                    }
+                });
+
+                $('#ijazah').filebox({
+                    onChange: function (data) {
+                        var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp;
+                        var f = $("input[name=ijazah]");
+                        var listFiles = f[0].files;
+                        var formData = new FormData();
+                        formData.append('file', listFiles[0]);
+
+                        $.ajax({
+                            url: urlTarget,
+                            type: 'POST',
+                            data: formData,
+                            processData: false, // tell jQuery not to process the data
+                            contentType: false, // tell jQuery not to set contentType
+                            success: function (data) {
+                                data = JSON.parse(data);
+                                var txt = "<input name='file_data[]' class='easyui-textbox uploadData' value='" + data.upload_data.file_name + "' readonly />";
+                                $("#dtijazah").append(txt);
+                            }
+                        });
+                    }
+                });
+
+                $('#dokumen').filebox({
+                    onChange: function (data) {
+                        var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp;
+                        var f = $("input[name=dokumen]");
+                        var listFiles = f[0].files;
+                        var formData = new FormData();
+                        formData.append('file', listFiles[0]);
+
+                        $.ajax({
+                            url: urlTarget,
+                            type: 'POST',
+                            data: formData,
+                            processData: false, // tell jQuery not to process the data
+                            contentType: false, // tell jQuery not to set contentType
+                            success: function (data) {
+                                data = JSON.parse(data);
+                                var txt = "<input name='file_data[]' class='easyui-textbox uploadData' value='" + data.upload_data.file_name + "' readonly />";
+                                $("#dtdokumen").append(txt);
+                            }
+                        });
+                    }
+                });
+
+
             });
 
         </script>
