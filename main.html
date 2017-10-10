@@ -1,128 +1,148 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Menubar - jQuery EasyUI Mobile Demo</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Indonesia Kompeten</title>
 
-    <link rel="stylesheet" type="text/css" href="themes/metro/easyui.css">
-    <link rel="stylesheet" type="text/css" href="themes/mobile.css">
-    <link rel="stylesheet" type="text/css" href="themes/icon.css">
+        <link rel="stylesheet" type="text/css" href="themes/metro/easyui.css">
+        <link rel="stylesheet" type="text/css" href="themes/mobile.css">
+        <link rel="stylesheet" type="text/css" href="themes/icon.css">
 
-    <script type="text/javascript" src="jquery.min.js"></script>
+        <script type="text/javascript" src="jquery.min.js"></script>
 
-    <script type="text/javascript">
-        var base_url = "http://" + location.host + "/lsp_mobile/";
-        var remote_url = "http://" + location.host + "/rest/";
+        <script type="text/javascript">
+            var base_url = "http://" + location.host + "/lsp_mobile/";
+            var remote_url = "http://" + location.host + "/rest/";
 
-        $.urlParam = function (name) {
-            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-            return results[1] || 0;
-        }
+            $.urlParam = function (name) {
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                return results[1] || 0;
+            }
 
-    </script>
-</head>
-<body>
-    <div class="easyui-navpanel">
-        <header style="background-color: grey;color: white;">
-            <div class="m-toolbar" >
-                <div class="m-title">LSP KOMPUTER</div>
-            </div>
-        </header>
-        <div class="easyui-tabs" data-options="tabHeight:60,fit:true,tabPosition:'bottom',border:false,pill:true,narrow:true,justified:true">
-            <div style="padding:10px">
-                <div class="panel-header tt-inner">
-                    <img src='demo-mobile/images/modem.png'/><br>LSP
+            var kode_lsp = $.urlParam('kode_lsp');
+            
+            $(function () {
+
+                if (kode_lsp != "") {
+                    $("#tombolRegister").attr('href', '');
+                    $("#tombolRegister").attr('href', 'uji.html?kode_lsp=' + kode_lsp);
+                    var hrf = $("#tombolRegister").attr('href');
+                }else{
+                    $("#tombolRegister").attr('href', '');
+                    $("#tombolRegister").attr('href', 'uji.html');
+                    var hrf = $("#tombolRegister").attr('href');
+                }
+                
+            })
+            
+        </script>
+    </head>
+    <body>
+        <div class="easyui-navpanel">
+            <header style="background-color: grey;color: white;">
+                <div class="m-toolbar" >
+                    <div class="m-title">LSP KOMPUTER</div>
                 </div>
-                <div style="margin: 0 auto;text-align: center;">
-                    <img src='demo-mobile/images/lspkomputer.png' style="margin: 0 auto" />
-                </div>
-                <p>Lembaga Sertifikasi Profesi yang telah mendapatkan Lisensi dari BNSP untuk menyelenggarakan Uji Kompetensi di bidang Informatika.</p>
-                <div style="text-align:center;margin-top:30px">
-                    <a id="tombolRegister" href="uji.html">Pendaftaran Uji Kompetensi</a>
-                </div>
-            </div>
-            <div style="padding:10px">
-                <div class="panel-header tt-inner">
-                    <img src='demo-mobile/images/scanner.png'/><br>Skema
-                </div>
-                <p>Produk sertifikasi atau profesi yang menjadi ruang lingkup LSP untuk dapat di lakukan Uji Kompetensi.</p>
-                 <div style="text-align:center;margin-top:30px">
-                    <a id="tombolSkema" href="skema.html">Lihat Semua Skema >></a>
-                </div>
-            </div>
-            <div style="padding:10px">
-                <div class="panel-header tt-inner">
-                    <img src='demo-mobile/images/pda.png'/><br>TUK
-                </div>
-                <p>Tempat Uji Kompetensi yang tersebar di seluruh Indonesia. Mudah di akses dan profesional dalam layanan</p>
-            </div>
-            <div style="padding:10px">
-                <div class="panel-header tt-inner">
-                    <img src='demo-mobile/images/tablet.png'/><br>Login
-                </div>
-                <p>Login ke Sistem Sertifikasi LSP untuk mengolah data pribadi anda.</p>
-                <form id="ff">
-                    <div style="margin-bottom:10px">
-                        <input class="easyui-textbox" label="Username:" prompt="Username" style="width:100%">
+            </header>
+            <div class="easyui-tabs" data-options="tabHeight:60,fit:true,tabPosition:'bottom',border:false,pill:true,narrow:true,justified:true">
+                <div style="padding:10px">
+                    <div class="panel-header tt-inner">
+                        <img src='demo-mobile/images/modem.png'/><br>LSP
                     </div>
-
-                    <div style="margin-bottom:10px">
-                        <input class="easyui-passwordbox" label="Password:" prompt="Password" style="width:100%">
+                    <div style="margin: 0 auto;text-align: center;">
+                        <img src='demo-mobile/images/lspkomputer.png' style="margin: 0 auto" />
                     </div>
-                    
-                    <div style="margin-bottom:10px">
-                        <label class="textbox-label">Remember:</label>
-                        <input class="easyui-switchbutton">
+                    <p>Lembaga Sertifikasi Profesi yang telah mendapatkan Lisensi dari BNSP untuk menyelenggarakan Uji Kompetensi di bidang Informatika.</p>
+                    <div style="text-align:center;margin-top:30px">
+                        <a id="tombolRegister" href="uji.html">Pendaftaran Uji Kompetensi</a>
                     </div>
+                </div>
+                
+                <div style="padding:10px">
+                    <div class="panel-header tt-inner">
+                        <img src='demo-mobile/images/scanner.png'/><br>Skema
+                    </div>
+                    <p>Produk sertifikasi atau profesi yang menjadi ruang lingkup LSP untuk dapat di lakukan Uji Kompetensi.</p>
+                    <div style="text-align:center;margin-top:30px">
+                        <a id="tombolSkema" href="skema.html">Lihat Semua Skema >></a>
+                    </div>
+                </div>
+                <div style="padding:10px">
+                    <div class="panel-header tt-inner">
+                        <img src='demo-mobile/images/pda.png'/><br>TUK
+                    </div>
+                    <p>Tempat Uji Kompetensi yang tersebar di seluruh Indonesia. Mudah di akses dan profesional dalam layanan</p>
+                </div>
+                <div style="padding:10px">
+                    <div class="panel-header tt-inner">
+                        <img src='demo-mobile/images/tablet.png'/><br>Login
+                    </div>
+                    <p>Login ke Sistem Sertifikasi LSP untuk mengolah data pribadi anda.</p>
+                    <form id="ff">
+                        <div style="margin-bottom:10px">
+                            <input class="easyui-textbox" label="Username:" prompt="Username" style="width:100%">
+                        </div>
 
-                    <a id="tombolLogin" href="uji.html">Pendaftaran Uji Kompetensi</a>
-                </form>
+                        <div style="margin-bottom:10px">
+                            <input class="easyui-passwordbox" label="Password:" prompt="Password" style="width:100%">
+                        </div>
+
+                        <div style="margin-bottom:10px">
+                            <label class="textbox-label">Remember:</label>
+                            <input class="easyui-switchbutton">
+                        </div>
+                        
+                        
+                        <a id="tombolLogin" href="start.html">Pendaftaran Uji Kompetensi</a>
+                        
+                    </form>
+                </div>
             </div>
+
         </div>
 
-    </div>
-
-    <script type="text/javascript" src="jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="jquery.easyui.mobile.js"></script>
+        <script type="text/javascript" src="jquery.easyui.min.js"></script>
+        <script type="text/javascript" src="jquery.easyui.mobile.js"></script>
 
 
-    <script type="text/javascript">
-        $(document).ready(function () {
+        <script type="text/javascript">
 
-            $("#tombolRegister").linkbutton({
-                width: '100%',
-                heigth: '40px',
-                size: 'large',
-                iconCls: 'icon-save',
-            });
-            $("#tombolLogin").linkbutton({
-                width: '100%',
-                heigth: '40px',
-                size: 'large',
-                iconCls: 'icon-save',
-            });
-            $("#tombolSkema").linkbutton({
-                width: '100%',
-                heigth: '40px',
-                size: 'large',
-              
-            });
+            $(document).ready(function () {
 
-        })
-        var kode_lsp = $.urlParam('kode_lsp');
+                $("#tombolRegister").linkbutton({
+                    width: '100%',
+                    heigth: '40px',
+                    size: 'large',
+                    iconCls: 'icon-save',
+                });
+                
+                $("#tombolLogin").linkbutton({
+                    width: '100%',
+                    heigth: '40px',
+                    size: 'large',
+                    iconCls: 'icon-save',
+                });
+                
+                $("#tombolSkema").linkbutton({
+                    width: '100%',
+                    heigth: '40px',
+                    size: 'large',
+                });
 
-    </script>
-    <style scoped>
-       .tt-inner{
-        display:inline-block;
-        line-height:12px;
-        padding-top:6px;
-        position: relative;
-    }
-    p{
-        line-height:150%;
-    }
-</style>
-</body>
+            })
+
+        </script>
+        <style scoped>
+            .tt-inner{
+                display:inline-block;
+                line-height:12px;
+                padding-top:6px;
+                position: relative;
+            }
+            p{
+                line-height:150%;
+            }
+        </style>
+    </body>
 </html>
