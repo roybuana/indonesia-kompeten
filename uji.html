@@ -59,7 +59,7 @@
 
                 <form id="ff">
                     <div style="margin-bottom:10px">
-                        <input id="cc" name="skema" value="aa" label='Skema:' style="width:100%;">
+                        <input id="cc" name="skema" label='Skema:' style="width:100%;">
                     </div>
 
                     <div style="margin-bottom:10px">
@@ -72,6 +72,10 @@
 
                     <div style="margin-bottom:10px">
                         <input id="organisasi" class="easyui-textbox" name="organisasi" label="Organisasi:" prompt="Organisasi" style="width:100%" />
+                    </div>
+
+                    <div style="margin-bottom:10px">
+                        <input id="tempat_lahir" class="easyui-textbox" name="tempat_lahir" label="Tempat Lahir :" prompt="Tempat Lahir" style="width:100%" />
                     </div>
 
                     <div style="margin-bottom:10px">
@@ -151,41 +155,43 @@
 
         <!-- Step 3 //-->
         <div id="p3" class="easyui-navpanel">
-            <header>
-                <div class="m-toolbar">
-                    <div class="m-left">
-                        <a href="#" class="easyui-linkbutton m-back" id="p3Back" data-options="plain:true,outline:true,back:true">Back</a>
+            <form id="ff3" enctype="multipart/form-data">
+                <header>
+                    <div class="m-toolbar">
+                        <div class="m-left">
+                            <a href="#" class="easyui-linkbutton m-back" id="p3Back" data-options="plain:true,outline:true,back:true">Back</a>
+                        </div>
+                        <div class="m-title">Asesmen Mandiri</div>
                     </div>
-                    <div class="m-title">Asesmen Mandiri</div>
+                </header>
+
+
+                <div style="padding: 0 10px;margin-top: 10px;" id="boxAsesmen">
+
+                    <!--
+                    <div class="box">
+                        Kode Unit<br/>
+                        Judul Unit<br/>
+                        <input class="easyui-switchbutton" data-options="onText:'K',offText:'BK'"/><br/>
+                        Bukti Pendukung
+                    </div>
+                    //-->
+
                 </div>
-            </header>
 
-            <div style="padding: 0 10px;margin-top: 10px;" id="boxAsesmen">
 
-                <!--
-                <div class="box">
-                    Kode Unit<br/>
-                    Judul Unit<br/>
-                    <input class="easyui-switchbutton" data-options="onText:'K',offText:'BK'"/><br/>
-                    Bukti Pendukung
+                <div style="padding: 0 10px;margin-top: 10px;"></div>
+
+                <div style="padding: 0 10px;margin-top: 10px;">
+                    <div style="text-align:center;margin-top:30px">
+                        <a id="step3" href="#p4">Selesai & Kirim</a>
+                    </div>
                 </div>
-                //-->
 
-            </div>
-
-            <div style="padding: 0 10px;margin-top: 10px;">
-
-            </div>
-
-            <div style="padding: 0 10px;margin-top: 10px;">
-                <div style="text-align:center;margin-top:30px">
-                    <a id="step3" href="#p4">Selesai & Kirim</a>
-                </div>
-            </div>
-
-            <footer>
-                <div style="clear: both;margin-bottom: 10px;"></div>
-            </footer>
+                <footer>
+                    <div style="clear: both;margin-bottom: 10px;"></div>
+                </footer>
+            </form>
         </div>
 
         <div id="dlg">
@@ -252,11 +258,6 @@
                         getUnitskema(idskema);
                     }
                 });
-                /*
-                 $("#p3Back").click(function(){
-                 $("#step2").show();
-                 });
-                 */
 
                 function getUnitskema(idskema) {
                     $.ajax({
@@ -311,14 +312,28 @@
                     heigth: '40px',
                     size: 'large',
                     onClick: function (data) {
-                        var dtform = $("#ff").serializeArray();
-                        var dtform2 = $("#ff2").serializeArray();
-                        console.log(dtform[0].value);
-                        /*
-                         $.get(remote_url + 'unit_skema/index/' + kode_lsp + '?id=' + idskema, function (key, data) {
-                         console.log(data);
-                         });
-                         */
+                        var dtform = $("#ff").serialize();
+                        var dtform2 = $("#ff2").serialize();
+                        var dtform3 = $("#ff3").serialize();
+
+                        var dt = {form1: dtform, form2: dtform2, form3: dtform3, kodelsp: kode_lsp}
+
+                        $.ajax({
+                            type: 'post',
+                            url: remote_url + 'index.php/uji/simpan',
+                            data: dt,
+                            success: function (hsl) {
+                                hsl = JSON.parse(hsl);
+                                //console.log(hsl);
+                                if (hsl.success === true) {
+                                    $.messager.alert("Sukses", hsl.pesan);
+                                    window.location = base_url + "main.html?kode_lsp=" + kode_lsp;
+                                } else {
+                                    $.messager.alert("Gagal", hsl.pesan);
+                                }
+                                return false;
+                            }
+                        });
 
                     }
                 });
