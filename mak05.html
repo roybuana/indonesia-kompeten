@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Indonesia Kompeten</title>
+
+        <link rel="stylesheet" type="text/css" href="themes/material/easyui.css">
+        <link rel="stylesheet" type="text/css" href="themes/mobile.css">
+        <link rel="stylesheet" type="text/css" href="themes/icon.css">
+
+        <script type="text/javascript" src="jquery.min.js"></script>
+
+        <script type="text/javascript">
+            var base_url = "http://" + location.host + "/lsp_mobile/";
+            var remote_url = "http://" + location.host + "/rest/";
+            $.urlParam = function (name) {
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                return results[1] || 0;
+            }
+
+            var kode_lsp = $.urlParam('kode_lsp');
+        </script>
+
+        <style>
+            .asterisk{
+                color:red;
+                font-weight: bold;
+            }
+            .buktitam h3{
+                text-decoration: underline;
+            }
+            .box{
+                padding: 10px;
+                border-bottom: 1px solid #ccc;
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <!-- Step 1 //-->
+        <div class="easyui-navpanel">
+            <header>
+                <div class="m-toolbar">
+                    <div class="m-left">
+                        <a href="#" class="easyui-linkbutton m-back" data-options="plain:true,outline:true,back:true">Back</a>
+                    </div>
+                    <div class="m-title">MAK-05</div>
+                </div>
+            </header>
+
+
+            <!-- FORM STEP 1 //-->
+            <div class="content_mobile" style="padding:0 20px">
+
+                <h2>FORM MAK - 05</h2>
+
+                <table style="width:97.5%;font-size: 11px;border-collapse: collapse;" border="1">
+                  <tr align="center">
+                    <td rowspan="2" style="width:35%;">Komponen</td>
+                    <td colspan="2" style="width:20%;">Hasil</td>
+                    <td rowspan="2" style="width:30%;">Catatan / Komentar Asesi</td>
+                  </tr>
+                  
+                  <tr align="center">
+                    <td style="width:8%;text-align: center;">Ya</td>
+                    <td style="width:8%;text-align: center;">Tidak</td>
+                  </tr>
+
+                  <tr>
+                    <td style="width:45%;">
+                      <table border="0"  style="border-collapse: collapse;">
+                        <tr style="text-align:justify;">
+                          <td style="width:3%;">1. </td>
+                          <td style="width:95%;">Saya mendapatkan penjelasan yang cukup memadai mengenai proses asesmen/uji kompetensi </td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td style="width:8%;text-align: center;">
+                      <input hidden type="radio" name="mak05[0]" value="1" />
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:8%;text-align: center;"> 
+                      <input hidden type="radio" name="mak05[0]" value="0"/>
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:49%;"><textarea hidden name="mak05a[0]" style="width: 100%;height: 100%;"></textarea>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="width:45%;">
+                      <table border="0"  style="border-collapse: collapse;">
+                        <tr style="text-align:justify;">
+                          <td style="width:3%;">2. </td>
+                          <td style="width:95%;">Asesor memberikan kesempatan untuk mendiskusikan/ menegosiasikan metoda,instrumen dan sumber asesmen serta jadwal asesmen </td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td style="width:8%;text-align: center;">
+                      <input hidden type="radio" name="mak05[0]" value="1" />
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:8%;text-align: center;"> 
+                      <input hidden type="radio" name="mak05[0]" value="0"/>
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:49%;"><textarea hidden name="mak05a[0]" style="width: 100%;height: 100%;"></textarea>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="width:45%;">
+                      <table border="0"  style="border-collapse: collapse;">
+                        <tr style="text-align:justify;">
+                          <td style="width:3%;">3. </td>
+                          <td style="width:95%;">Asesor berusaha menggali seluruh bukti pendukung yang sesuai dengan latar belakang pelatihan dan pengalaman yang saya miliki</td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td style="width:8%;text-align: center;">
+                      <input hidden type="radio" name="mak05[0]" value="1" />
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:8%;text-align: center;"> 
+                      <input hidden type="radio" name="mak05[0]" value="0"/>
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:49%;"><textarea hidden name="mak05a[0]" style="width: 100%;height: 100%;"></textarea>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="width:45%;">
+                      <table border="0"  style="border-collapse: collapse;">
+                        <tr style="text-align:justify;">
+                          <td style="width:3%;">4. </td>
+                          <td style="width:95%;">Saya mendapatkan jaminan kerahasiaan hasil asesmen serta penjelasan penanganan dokumen asesmen</td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td style="width:8%;text-align: center;">
+                      <input hidden type="radio" name="mak05[0]" value="1" />
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:8%;text-align: center;"> 
+                      <input hidden type="radio" name="mak05[0]" value="0"/>
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:49%;"><textarea hidden name="mak05a[0]" style="width: 100%;height: 100%;"></textarea>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="width:45%;">
+                      <table border="0"  style="border-collapse: collapse;">
+                        <tr style="text-align:justify;">
+                          <td style="width:3%;">5. </td>
+                          <td style="width:95%;">Saya sepenuhnya diberikan kesempatan untuk mendemonstrasikan kompetensi yang saya miliki selama asesmen</td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td style="width:8%;text-align: center;">
+                      <input hidden type="radio" name="mak05[0]" value="1" />
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:8%;text-align: center;"> 
+                      <input hidden type="radio" name="mak05[0]" value="0"/>
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:49%;"><textarea hidden name="mak05a[0]" style="width: 100%;height: 100%;"></textarea>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="width:45%;">
+                      <table border="0"  style="border-collapse: collapse;">
+                        <tr style="text-align:justify;">
+                          <td style="width:3%;">6. </td>
+                          <td style="width:95%;">Saya mendapatkan penjelasan yang memadai mengenai keputusan asesmen</td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td style="width:8%;text-align: center;">
+                      <input hidden type="radio" name="mak05[0]" value="1" />
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:8%;text-align: center;"> 
+                      <input hidden type="radio" name="mak05[0]" value="0"/>
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:49%;"><textarea hidden name="mak05a[0]" style="width: 100%;height: 100%;"></textarea>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="width:45%;">
+                      <table border="0"  style="border-collapse: collapse;">
+                        <tr style="text-align:justify;">
+                          <td style="width:3%;">7. </td>
+                          <td style="width:95%;">Asesor bersama saya menandatangani semua dokumen hasil asesmen</td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td style="width:8%;text-align: center;">
+                      <input hidden type="radio" name="mak05[0]" value="1" />
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:8%;text-align: center;"> 
+                      <input hidden type="radio" name="mak05[0]" value="0"/>
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:49%;"><textarea hidden name="mak05a[0]" style="width: 100%;height: 100%;"></textarea>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="width:45%;">
+                      <table border="0"  style="border-collapse: collapse;">
+                        <tr style="text-align:justify;">
+                          <td style="width:3%;">8. </td>
+                          <td style="width:95%;">Asesor menggunakan keterampilan komunikasi yang efektif selama asesmen</td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td style="width:8%;text-align: center;">
+                      <input hidden type="radio" name="mak05[0]" value="1" />
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:8%;text-align: center;"> 
+                      <input hidden type="radio" name="mak05[0]" value="0"/>
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:49%;"><textarea hidden name="mak05a[0]" style="width: 100%;height: 100%;"></textarea>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="width:45%;">
+                      <table border="0"  style="border-collapse: collapse;">
+                        <tr style="text-align:justify;">
+                          <td style="width:3%;">9. </td>
+                          <td style="width:95%;">Saya sepenuhnya diberikan kesempatan untuk mendemonstrasikan kompetensi yang saya miliki selama asesmen</td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td style="width:8%;text-align: center;">
+                      <input hidden type="radio" name="mak05[0]" value="1" />
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:8%;text-align: center;"> 
+                      <input hidden type="radio" name="mak05[0]" value="0"/>
+                      <i class="icons-check"></i><i class="icons-no_check"></i>
+                    </td>
+                    <td style="width:49%;"><textarea hidden name="mak05a[0]" style="width: 100%;height: 100%;"></textarea>
+                    </td>
+                  </tr>
+
+                </table>
+            </div>
+
+        </div>
+
+        <script type="text/javascript" src="jquery.easyui.min.js"></script>
+        <script type="text/javascript" src="jquery.easyui.mobile.js"></script>
+
+    </body>
+</html>

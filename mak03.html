@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Indonesia Kompeten</title>
+
+        <link rel="stylesheet" type="text/css" href="themes/material/easyui.css">
+        <link rel="stylesheet" type="text/css" href="themes/mobile.css">
+        <link rel="stylesheet" type="text/css" href="themes/icon.css">
+
+        <script type="text/javascript" src="jquery.min.js"></script>
+
+        <script type="text/javascript">
+            var base_url = "http://" + location.host + "/lsp_mobile/";
+            var remote_url = "http://" + location.host + "/rest/";
+            $.urlParam = function (name) {
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                return results[1] || 0;
+            }
+
+            var kode_lsp = $.urlParam('kode_lsp');
+        </script>
+
+        <style>
+            .asterisk{
+                color:red;
+                font-weight: bold;
+            }
+            .buktitam h3{
+                text-decoration: underline;
+            }
+            .box{
+                padding: 10px;
+                border-bottom: 1px solid #ccc;
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <!-- Step 1 //-->
+        <div class="easyui-navpanel">
+            <header>
+                <div class="m-toolbar">
+                    <div class="m-left">
+                        <a href="#" class="easyui-linkbutton m-back" data-options="plain:true,outline:true,back:true">Back</a>
+                    </div>
+                    <div class="m-title">MAK-03</div>
+                </div>
+            </header>
+
+
+            <!-- FORM STEP 1 //-->
+            <div class="content_mobile" style="padding:0 20px">
+
+                <h2>FORM MAK - 03</h2>
+
+                <div style="padding:10px">
+                    <p><b>Peserta Sertifikasi</b>: Tidak Setuju</p>
+                    <p align="justify">Saya setuju mengikuti asesmen dengan pemahaman bahwa informasi yang dikumpulkan hanya digunakan untuk pengembangan profesional dan hanya dapat diakses oleh orang tertentu saja</p>
+                    <form id="ff">
+                        <div style="margin-bottom:10px">
+                            <input id="cc" name="skema" label='Asesor:' style="width:100%;">
+                        </div>
+                    </form>
+                    <p align="justify">Menyatakan tidak akan membuka hasil pekerjaan yang saya peroleh karena penugasan saya sebagai asesor dalam pekerjaan Asesmen kepada siapapun atau organisasi apapun selain kepada pihak yang berwenang sehubungan dengan kewajiban saya sebagai Asesor yang ditugaskan oleh LSP</p>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <script type="text/javascript" src="jquery.easyui.min.js"></script>
+        <script type="text/javascript" src="jquery.easyui.mobile.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#dlg').dialog({
+                    title: 'Detail Unit Kompetensi',
+                    width: 320,
+                    height: 400,
+                    closed: true,
+                    cache: false,
+                    collapsible: true,
+                    maximizable: true,
+                    resizable : true,
+                    modal: true,
+                    buttons: [{
+                            text: 'Close',
+                            handler: function () {
+                                $('#dlg').dialog('close');
+                            }
+                        }]
+                });
+
+                $("#tombolRegister").linkbutton({
+                    width: '100%',
+                    heigth: '40px',
+                    size: 'large',
+                    onClick: function (data) {
+                        var dtform = $("#ff").serializeArray();
+                        var jmlIsi = dtform.length;
+                        var no = 0;
+                        $.each(dtform, function (key, dt) {
+                            if (dt.value !== "") {
+                                no++;
+                            }
+                        });
+                        //$("#tombolRegister").attr('href', '#p2');
+
+                        if (no == parseInt(jmlIsi)) {
+                            //window.location = "#p2";
+                            $("#tombolRegister").attr('href', '#p2');
+                        } else {
+                            $.messager.alert("Pesan", "Data harus diisi semua !");
+                        }
+
+                        return false;
+                    }
+                });
+                $("#step2").linkbutton({
+                    width: '100%',
+                    heigth: '40px',
+                    size: 'large',
+                    onClick: function (data) {
+                        //$("#step2").hide();
+                        var dtform = $("#ff").serializeArray();
+                        var idskema = dtform[0].value;
+                        $("#step2").attr('href', '#p3');
+                        getUnitskema(idskema);
+                    }
+                });
+
+                function getUnitskema(idskema) {
+                    $.ajax({
+                        url: remote_url + 'index.php/unit_skema/index/' + kode_lsp,
+                        data: {id: idskema},
+                        success: function (hsl) {
+                            var hasil = JSON.parse(hsl);
+
+                            var itemOp = [];
+                            $.each($(".uploadData"), function (key, dt) {
+                                itemOp.push({'id': dt.value, 'text': dt.value});
+                            });
+                            //console.log(JSON.stringify(itemOp));
+
+                            $("#boxAsesmen").empty();
+
+                            $.each(hasil, function (key, dt) {
+                                //console.log(dt);
+                                var item = '<div class="box">';
+                                item += dt.id_unit_kompetensi + '<br/>';
+                                item += dt.unit_kompetensi + '<br/>';
+                                item += '<input class="bk">&nbsp;';
+                                item += '<select name="bukti_pendukung[]" class="bukti_pendukung" style="width:150px;"></select>&nbsp;';
+                                item += '<a href="javascript:void(0)" data-url="' + remote_url + 'index.php/unit_skema/detail_unit/' + kode_lsp + '/' + dt.id_unit + '" class="btnDetail">Detail</a>';
+                                item += '</div>';
+                                $("#boxAsesmen").append(item);
+                                $('.bk').switchbutton({
+                                    onText: 'K',
+                                    offText: 'BK'
+                                });
+                                $(".bukti_pendukung").combobox({
+                                    data: itemOp,
+                                    valueField: 'id',
+                                    textField: 'text'
+                                });
+                                $('.btnDetail').linkbutton({
+                                    iconCls: 'icon-search',
+                                    onClick: function () {
+                                        var urlTarget = $(this).attr('data-url');
+                                        console.log(urlTarget);
+                                        $('#dlg').dialog('refresh', urlTarget);
+                                        $('.table_elemen').datagrid();
+                                        $('#dlg').dialog('open');
+                                    }
+                                });
+                            });
+                        }
+                    });
+                }
+
+                $("#step3").linkbutton({
+                    width: '100%',
+                    heigth: '40px',
+                    size: 'large',
+                    onClick: function (data) {
+
+                        var dtform = $("#ff").serialize();
+                        var dtform2 = $("#ff2").serialize();
+                        var dtform3 = $("#ff3").serialize();
+                        var dt = {form1: dtform, form2: dtform2, form3: dtform3, kodelsp: kode_lsp}
+
+                        $.ajax({
+                            type: 'post',
+                            url: remote_url + 'index.php/uji/simpan',
+                            data: dt,
+                            success: function (hsl) {
+
+                                hsl = JSON.parse(hsl);
+                                //console.log(hsl);
+                                if (hsl.success === true) {
+                                    $.messager.alert("Sukses", hsl.pesan);
+                                    window.location = base_url + "main.html?kode_lsp=" + kode_lsp;
+                                } else {
+                                    $.messager.alert("Gagal", hsl.pesan);
+                                }
+                                return false;
+                            }
+                        });
+
+                        return false;
+                    }
+                });
+                $('#cc').combobox({
+                    url: remote_url + 'index.php/combo_skema/' + kode_lsp,
+                    valueField: 'id',
+                    textField: 'text',
+                    method: 'get'
+                });
+                $('#jadwal').combobox({
+                    url: remote_url + 'index.php/jadwal/combo?kode_lsp=' + kode_lsp,
+                    valueField: 'id',
+                    textField: 'text',
+                    method: 'get'
+                });
+                $("#nama_dokumen").combobox({
+                    data: [{name: '', value: '- Nama Dokumen -'}, {name: 'foto', value: 'Foto'}, {name: 'ktp', value: 'KTP'}, {name: 'ijazah', value: 'Ijazah'}, {name: 'skkd', value: 'Surat Keterangan Keaslian Dok.'}, {name: 'cp', value: 'Contoh / Report Pekerjaan (CP)'}, {name: 'surat_pelatihan', value: 'Sertifikat Pelatihan (SK)'}, {name: 'surat_referensi', value: 'Surat Referensi dari Perusahaan'}, {name: 'job_description', value: 'Job Description (JD)'}, {name: 'demonstrasi_pekerjaan', value: 'Demonstrasi Pekerjaan (De)'}, {name: 'wawancara_supervisor', value: 'Wawancara dg. Supervisor, teman atau klien'}, {name: 'pengalaman_industri', value: 'Pengalaman Industri (Pe)'}, {name: 'bukti_relevan', value: 'Bukti-Bukti Lain yang Masih Relevan / CV'}, {name: 'sertifikat_expired', value: 'Sertifikat Expired'}],
+                    valueField: 'name',
+                    textField: 'value'
+                });
+                // Upload Dokumen
+                $('#foto').filebox({
+                    onChange: function (data) {
+                        var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp + "/foto";
+                        //$.messager.alert("Title", urlTarget);
+                        var f = $("input[name=foto]");
+                        var listFiles = f[0].files;
+                        var formData = new FormData();
+                        formData.append('file', listFiles[0]);
+                        $.ajax({
+                            url: urlTarget,
+                            type: 'POST',
+                            data: formData,
+                            processData: false, // tell jQuery not to process the data
+                            contentType: false, // tell jQuery not to set contentType
+                            success: function (data) {
+                                data = JSON.parse(data);
+                                var txt = "<input name='file_data[]' class='easyui-textbox uploadData' value='" + data.upload_data.file_name + "' readonly />";
+                                $("#dtfoto").append(txt);
+                            }
+                        });
+                    }
+                });
+                $('#ktp').filebox({
+                    onChange: function (data) {
+                        var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp + "/ktp";
+                        var f = $("input[name=ktp]");
+                        var listFiles = f[0].files;
+                        var formData = new FormData();
+                        formData.append('file', listFiles[0]);
+                        $.ajax({
+                            url: urlTarget,
+                            type: 'POST',
+                            data: formData,
+                            processData: false, // tell jQuery not to process the data
+                            contentType: false, // tell jQuery not to set contentType
+                            success: function (data) {
+                                data = JSON.parse(data);
+                                var txt = "<input name='file_data[]' class='easyui-textbox uploadData' value='" + data.upload_data.file_name + "' readonly />";
+                                $("#dtktp").append(txt);
+                            }
+                        });
+                    }
+                });
+                $('#ijazah').filebox({
+                    onChange: function (data) {
+                        var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp + "/ijazah";
+                        var f = $("input[name=ijazah]");
+                        var listFiles = f[0].files;
+                        var formData = new FormData();
+                        formData.append('file', listFiles[0]);
+                        $.ajax({
+                            url: urlTarget,
+                            type: 'POST',
+                            data: formData,
+                            processData: false, // tell jQuery not to process the data
+                            contentType: false, // tell jQuery not to set contentType
+                            success: function (data) {
+                                data = JSON.parse(data);
+                                var txt = "<input name='file_data[]' class='easyui-textbox uploadData' value='" + data.upload_data.file_name + "' readonly />";
+                                $("#dtijazah").append(txt);
+                            }
+                        });
+                    }
+                });
+                $('#dokumen').filebox({
+                    onChange: function (data) {
+                        var nama_dokumen = $("#nama_dokumen").val();
+                        //$.messager.alert("Title", nama_dokumen);
+
+                        var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp + "/" + nama_dokumen;
+                        var f = $("input[name=dokumen]");
+                        var listFiles = f[0].files;
+                        var formData = new FormData();
+                        formData.append('file', listFiles[0]);
+                        $.ajax({
+                            url: urlTarget,
+                            type: 'POST',
+                            data: formData,
+                            processData: false, // tell jQuery not to process the data
+                            contentType: false, // tell jQuery not to set contentType
+                            success: function (data) {
+                                data = JSON.parse(data);
+                                var txt = "<input name='file_data[]' class='easyui-textbox uploadData' value='" + data.upload_data.file_name + "' readonly />";
+                                $("#dtdokumen").append(txt);
+                            }
+                        });
+                    }
+                });
+            });
+
+        </script>
+
+
+    </body>
+</html>
