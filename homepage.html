@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Menubar - jQuery EasyUI Mobile Demo</title>
+
+        <link rel="stylesheet" type="text/css" href="themes/material/easyui.css">
+        <link rel="stylesheet" type="text/css" href="themes/mobile.css">
+        <link rel="stylesheet" type="text/css" href="themes/color.css"> 
+        <link rel="stylesheet" type="text/css" href="themes/icon.css">
+
+        <script type="text/javascript" src="jquery.min.js"></script>
+
+        <script type="text/javascript">
+
+            var base_url = "http://" + location.host + "/lsp_mobile/";
+            var remote_url = "http://" + location.host + "/rest/";
+        </script>
+    </head>
+    <body>
+        <div id="panelBody" class="easyui-navpanel" data-options="href:'homepage_asesi.html'">
+            <header>
+                <div class="m-toolbar">
+                <div class="m-title">HOMEPAGE</div>
+                <div class="m-right">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true"></a>
+                    <a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-more',menu:'#mm',menuAlign:'right',hasDownArrow:false"></a>
+                </div>
+            </div>
+            </header>
+
+        </div>
+        <div id="mm" class="easyui-menu" style="width:150px;">
+        <div data-options="iconCls:'icon-undo'">Profil</div>
+        <div data-options="iconCls:'icon-redo'">Riwayat Sertifikasi</div>
+        <div class="menu-sep"></div>
+        <div>Persetujuan Asesmen</div>
+        <div>Umpan Balik</div>
+        <div>Rekomendasi Asesor</div>
+        <div class="menu-sep"></div>
+        <div>Sertifikat Kompetensi</div>
+        
+    </div>
+        <script type="text/javascript" src="jquery.easyui.min.js"></script>
+        <script type="text/javascript" src="jquery.easyui.mobile.js"></script>
+
+
+        <script type="text/javascript">
+            function showContent(item) {
+                $('#panelBody').panel('open').panel('refresh', item.url);
+                return false;
+            }
+
+        </script>
+
+    </body>
+</html>
