@@ -79,6 +79,10 @@
                     </div>
 
                     <div style="margin-bottom:10px">
+                        <input id="tempat_lahir" class="easyui-textbox" name="tempat_lahir" label="Tempat Lahir :" prompt="Tempat Lahir" style="width:100%" />
+                    </div>
+
+                    <div style="margin-bottom:10px">
                         <input class="easyui-datebox" name="tgl_lahir" label="Tgl Lahir:" prompt="Birthday" data-options="editable:false,panelWidth:220,panelHeight:240,iconWidth:30" style="width:100%" />
                     </div>
 
@@ -155,16 +159,17 @@
 
         <!-- Step 3 //-->
         <div id="p3" class="easyui-navpanel">
-            <header>
-                <div class="m-toolbar">
-                    <div class="m-left">
-                        <a href="#" class="easyui-linkbutton m-back" id="p3Back" data-options="plain:true,outline:true,back:true">Back</a>
-                    </div>
-                    <div class="m-title">Asesmen Mandiri</div>
-                </div>
-            </header>
-
             <form id="ff3" enctype="multipart/form-data">
+                <header>
+                    <div class="m-toolbar">
+                        <div class="m-left">
+                            <a href="#" class="easyui-linkbutton m-back" id="p3Back" data-options="plain:true,outline:true,back:true">Back</a>
+                        </div>
+                        <div class="m-title">Asesmen Mandiri</div>
+                    </div>
+                </header>
+
+
                 <div style="padding: 0 10px;margin-top: 10px;" id="boxAsesmen">
 
                     <!--
@@ -177,19 +182,19 @@
                     //-->
 
                 </div>
-            </form>
 
-            <div style="padding: 0 10px;margin-top: 10px;"></div>
+                <div style="padding: 0 10px;margin-top: 10px;"></div>
 
-            <div style="padding: 0 10px;margin-top: 10px;">
-                <div style="text-align:center;margin-top:30px">
-                    <a id="step3" href="#p4">Selesai & Kirim</a>
+                <div style="padding: 0 10px;margin-top: 10px;">
+                    <div style="text-align:center;margin-top:30px">
+                        <a id="step3" href="#p4">Selesai & Kirim</a>
+                    </div>
                 </div>
-            </div>
 
-            <footer>
-                <div style="clear: both;margin-bottom: 10px;"></div>
-            </footer>
+                <footer>
+                    <div style="clear: both;margin-bottom: 10px;"></div>
+                </footer>
+            </form>
         </div>
 
         <div id="dlg">
@@ -312,10 +317,10 @@
                     heigth: '40px',
                     size: 'large',
                     onClick: function (data) {
-                        var dtform = $("#ff").serializeArray();
-                        var dtform2 = $("#ff2").serializeArray();
-                        var dtform3 = $("#ff3").serializeArray();
 
+                        var dtform = $("#ff").serialize();
+                        var dtform2 = $("#ff2").serialize();
+                        var dtform3 = $("#ff3").serialize();
                         var dt = {form1: dtform, form2: dtform2, form3: dtform3, kodelsp: kode_lsp}
 
                         $.ajax({
@@ -323,7 +328,16 @@
                             url: remote_url + 'index.php/uji/simpan',
                             data: dt,
                             success: function (hsl) {
-                                console.log(hsl);
+
+                                hsl = JSON.parse(hsl);
+                                //console.log(hsl);
+                                if (hsl.success === true) {
+                                    $.messager.alert("Sukses", hsl.pesan);
+                                    window.location = base_url + "main.html?kode_lsp=" + kode_lsp;
+                                } else {
+                                    $.messager.alert("Gagal", hsl.pesan);
+                                }
+                                return false;
                             }
                         });
 
