@@ -15,7 +15,6 @@
         <script type="text/javascript">
             var base_url = "http://" + location.host + "/lsp_mobile/";
             var remote_url = "http://" + location.host + "/rest/";
-
             $.urlParam = function (name) {
                 var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
                 return results[1] || 0;
@@ -155,7 +154,7 @@
             <header>
                 <div class="m-toolbar">
                     <div class="m-left">
-                        <a href="#" class="easyui-linkbutton m-back" data-options="plain:true,outline:true,back:true">Back</a>
+                        <a href="#" class="easyui-linkbutton m-back" id="p3Back" data-options="plain:true,outline:true,back:true">Back</a>
                     </div>
                     <div class="m-title">Asesmen Mandiri</div>
                 </div>
@@ -183,15 +182,38 @@
                     <a id="step3" href="#p4">Selesai & Kirim</a>
                 </div>
             </div>
+
+            <footer>
+                <div style="clear: both;margin-bottom: 10px;"></div>
+            </footer>
         </div>
 
-
+        <div id="dlg">
+            The dialog content.
+        </div>
 
         <script type="text/javascript" src="jquery.easyui.min.js"></script>
         <script type="text/javascript" src="jquery.easyui.mobile.js"></script>
 
         <script type="text/javascript">
             $(document).ready(function () {
+
+                $('#dlg').dialog({
+                    title: 'Detail Unit Kompetensi',
+                    width: 270,
+                    height: 200,
+                    closed: true,
+                    cache: false,
+                    collapsible: true,
+                    maximizable: true,
+                    modal: true,
+                    buttons: [{
+                            text: 'Close',
+                            handler: function () {
+                                $('#dlg').dialog('close');
+                            }
+                        }]
+                });
 
                 $("#tombolRegister").linkbutton({
                     width: '100%',
@@ -200,14 +222,12 @@
                     onClick: function (data) {
                         var dtform = $("#ff").serializeArray();
                         var jmlIsi = dtform.length;
-
                         var no = 0;
                         $.each(dtform, function (key, dt) {
                             if (dt.value !== "") {
                                 no++;
                             }
                         });
-
                         //$("#tombolRegister").attr('href', '#p2');
 
                         if (no == parseInt(jmlIsi)) {
@@ -220,20 +240,23 @@
                         return false;
                     }
                 });
-
                 $("#step2").linkbutton({
                     width: '100%',
                     heigth: '40px',
                     size: 'large',
                     onClick: function (data) {
-                        $("#step2").hide();
+                        //$("#step2").hide();
                         var dtform = $("#ff").serializeArray();
                         var idskema = dtform[0].value;
                         $("#step2").attr('href', '#p3');
-                        //console.log(remote_url + 'index.php/unit_skema/index/' + kode_lsp);
                         getUnitskema(idskema);
                     }
                 });
+                /*
+                 $("#p3Back").click(function(){
+                 $("#step2").show();
+                 });
+                 */
 
                 function getUnitskema(idskema) {
                     $.ajax({
@@ -242,27 +265,43 @@
                         success: function (hsl) {
                             var hasil = JSON.parse(hsl);
 
+                            var itemOp = [];
+                            $.each($(".uploadData"), function (key, dt) {
+                                itemOp.push({'id': dt.value, 'text': dt.value});
+                            });
+                            //console.log(JSON.stringify(itemOp));
+
+                            $("#boxAsesmen").empty();
+
                             $.each(hasil, function (key, dt) {
                                 //console.log(dt);
                                 var item = '<div class="box">';
                                 item += dt.id_unit_kompetensi + '<br/>';
                                 item += dt.unit_kompetensi + '<br/>';
-                                item += '<input class="bk"><br/>';
-                                item += '<select name="bukti_pendukung[]" class="bukti_pendukung"></select></div>';
+                                item += '<input class="bk">&nbsp;';
+                                item += '<select name="bukti_pendukung[]" class="bukti_pendukung" style="width:150px;"></select><br/>';
+                                item += '<a href="javascript:void(0)" data-url="' + remote_url + 'index.php/unit_skema/detail_unit/' + kode_lsp + '/' + dt.id_unit + '" class="btnDetail">Detail</a>';
+                                item += '</div>';
                                 $("#boxAsesmen").append(item);
-
                                 $('.bk').switchbutton({
                                     onText: 'K',
                                     offText: 'BK'
                                 });
+                                $(".bukti_pendukung").combobox({
+                                    data: itemOp,
+                                    valueField: 'id',
+                                    textField: 'text'
+                                });
+                                $('.btnDetail').linkbutton({
+                                    iconCls: 'icon-search',
+                                    onClick: function () {
+                                        var urlTarget = $(this).attr('data-url');
+                                        console.log(urlTarget);
+                                        $('#dlg').dialog('refresh', urlTarget);
+                                        $('#dlg').dialog('open');
+                                    }
+                                });
                             });
-
-                            var itemOp = "";
-                            $.each($(".uploadData"), function (key, dt) {
-                                console.log(dt.value);
-                                itemOp += "<option value='" + dt.value + "'>" + dt.value + "</option>";
-                            });
-                            $(".bukti_pendukung").append(itemOp);
                         }
                     });
                 }
@@ -275,7 +314,6 @@
                         var dtform = $("#ff").serializeArray();
                         var dtform2 = $("#ff2").serializeArray();
                         console.log(dtform[0].value);
-
                         /*
                          $.get(remote_url + 'unit_skema/index/' + kode_lsp + '?id=' + idskema, function (key, data) {
                          console.log(data);
@@ -284,37 +322,32 @@
 
                     }
                 });
-
                 $('#cc').combobox({
                     url: remote_url + 'index.php/combo_skema/' + kode_lsp,
                     valueField: 'id',
                     textField: 'text',
                     method: 'get'
                 });
-
                 $('#jadwal').combobox({
                     url: remote_url + 'index.php/jadwal/combo?kode_lsp=' + kode_lsp,
                     valueField: 'id',
                     textField: 'text',
                     method: 'get'
                 });
-
                 $("#nama_dokumen").combobox({
                     data: [{name: '', value: '- Nama Dokumen -'}, {name: 'foto', value: 'Foto'}, {name: 'ktp', value: 'KTP'}, {name: 'ijazah', value: 'Ijazah'}, {name: 'skkd', value: 'Surat Keterangan Keaslian Dok.'}, {name: 'cp', value: 'Contoh / Report Pekerjaan (CP)'}, {name: 'surat_pelatihan', value: 'Sertifikat Pelatihan (SK)'}, {name: 'surat_referensi', value: 'Surat Referensi dari Perusahaan'}, {name: 'job_description', value: 'Job Description (JD)'}, {name: 'demonstrasi_pekerjaan', value: 'Demonstrasi Pekerjaan (De)'}, {name: 'wawancara_supervisor', value: 'Wawancara dg. Supervisor, teman atau klien'}, {name: 'pengalaman_industri', value: 'Pengalaman Industri (Pe)'}, {name: 'bukti_relevan', value: 'Bukti-Bukti Lain yang Masih Relevan / CV'}, {name: 'sertifikat_expired', value: 'Sertifikat Expired'}],
                     valueField: 'name',
                     textField: 'value'
                 });
-
                 // Upload Dokumen
                 $('#foto').filebox({
                     onChange: function (data) {
-                        var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp;
+                        var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp + "/foto";
                         //$.messager.alert("Title", urlTarget);
                         var f = $("input[name=foto]");
                         var listFiles = f[0].files;
                         var formData = new FormData();
                         formData.append('file', listFiles[0]);
-
                         $.ajax({
                             url: urlTarget,
                             type: 'POST',
@@ -329,15 +362,13 @@
                         });
                     }
                 });
-
                 $('#ktp').filebox({
                     onChange: function (data) {
-                        var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp;
+                        var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp + "/ktp";
                         var f = $("input[name=ktp]");
                         var listFiles = f[0].files;
                         var formData = new FormData();
                         formData.append('file', listFiles[0]);
-
                         $.ajax({
                             url: urlTarget,
                             type: 'POST',
@@ -352,15 +383,13 @@
                         });
                     }
                 });
-
                 $('#ijazah').filebox({
                     onChange: function (data) {
-                        var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp;
+                        var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp + "/ijazah";
                         var f = $("input[name=ijazah]");
                         var listFiles = f[0].files;
                         var formData = new FormData();
                         formData.append('file', listFiles[0]);
-
                         $.ajax({
                             url: urlTarget,
                             type: 'POST',
@@ -375,15 +404,16 @@
                         });
                     }
                 });
-
                 $('#dokumen').filebox({
                     onChange: function (data) {
-                        var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp;
+                        var nama_dokumen = $("#nama_dokumen").val();
+                        //$.messager.alert("Title", nama_dokumen);
+
+                        var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp + "/" + nama_dokumen;
                         var f = $("input[name=dokumen]");
                         var listFiles = f[0].files;
                         var formData = new FormData();
                         formData.append('file', listFiles[0]);
-
                         $.ajax({
                             url: urlTarget,
                             type: 'POST',
@@ -398,8 +428,6 @@
                         });
                     }
                 });
-
-
             });
 
         </script>
