@@ -36,7 +36,7 @@
                     <div class="m-left">
                         <a href="#" class="easyui-linkbutton m-back" data-options="plain:true,outline:true,back:true">Back</a>
                     </div>
-                    <div class="m-title">MAK-05</div>
+                    <div class="m-title">RIWAYAT SERTIFIKASI</div>
                 </div>
             </header>
 
@@ -44,29 +44,31 @@
             <!-- FORM STEP 1 //-->
             <div class="content_mobile" style="padding:0 20px">
 
-                <h2>FORM MAK - 05</h2>
+                <h2>RIWAYAT SERTIFIKASI</h2>
 
         <table id="dg" data-options="header:'#hh',singleSelect:true,border:false,fit:true,fitColumns:true,scrollbarSize:0">  
             <thead>  
                 <tr>  
-                    <th rowspan="2" data-options="field:'komponen',width:80,align:'center'">Komponen</th>
-                    <th colspan="2" data-options="field:'hasil',width:100,align:'center'">Hasil</th>  
-                    <th rowspan="2" data-options="field:'catatan',width:80,align:'center'">Catatan / Komentar Asesi</th>    
-                </tr>
-                <tr>  
-                    <th data-options="field:'ya',width:50">Ya</th>  
-                    <th data-options="field:'tidak',width:50">Tidak</th>   
+                    <th data-options="field:'itemid',width:80">Jadwal</th>  
+                    <th data-options="field:'productid',width:100">Skema</th>  
+                    <th data-options="field:'listprice',width:80,align:'right'">Status</th>  
+                    <th data-options="field:'unitcost',width:80,align:'right'">Unit Cost</th>  
                 </tr>
             </thead>  
         </table>
         <div id="hh">
             <div class="m-toolbar">
-                <div class="m-title">MAK - 05</div>
+                <div class="m-title">Riwayat Sertifikasi</div>
             </div>
         </div>
         <script>
             var data =     [
-                {"hasil":"FI-SW-01","catatan":36.50,"komponen":"EST-1","ya":"Ya","tidak":"Tidak"},                
+                {"productid":"FI-SW-01","productname":"Koi","unitcost":10.00,"status":"P","listprice":36.50,"attr1":"Large","itemid":"EST-1"},
+                {"productid":"K9-DL-01","productname":"Dalmation","unitcost":12.00,"status":"P","listprice":18.50,"attr1":"Spotted Adult Female","itemid":"EST-10"},
+                {"productid":"RP-SN-01","productname":"Rattlesnake","unitcost":12.00,"status":"P","listprice":38.50,"attr1":"Venomless","itemid":"EST-11"},
+                {"productid":"RP-SN-01","productname":"Rattlesnake","unitcost":12.00,"status":"P","listprice":26.50,"attr1":"Rattleless","itemid":"EST-12"},
+                {"productid":"RP-LI-02","productname":"Iguana","unitcost":12.00,"status":"P","listprice":35.50,"attr1":"Green Adult","itemid":"EST-13"},
+                
             ];
             console.log(data);
             $(function(){
