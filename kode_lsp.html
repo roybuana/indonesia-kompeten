@@ -2,11 +2,11 @@
     <div style="clear: both;margin-bottom: 10px;"></div>
     <div style="margin-bottom:10px">
         <label>Masukkan Kode LSP</label>
-        <input class="easyui-textbox" id="kode_lsp" data-options="prompt:'Type ID LSP',iconCls:'icon-man'" style="width:100%;height:38px">
+        <input class="easyui-textbox" id="kode_lsp" data-options="prompt:'Type ID LSP',iconCls:'icon-filter'" style="width:100%;height:38px">
     </div>
 
     <div style="margin-bottom:10px">
-        <a href="javascript:void(0)" id="btnapply" class="easyui-linkbutton c1" style="width:100%;height:40px"><span style="font-size:16px">Apply</span></a>
+        <a href="javascript:void(0)" id="btnapply" class="easyui-linkbutton c6" style="width:100%;height:40px"><span style="font-size:16px">Apply</span></a>
     </div>
 
 </div>
@@ -18,7 +18,12 @@
             if (kode_lsp == "") {
                 $.messager.alert('Warning', "Silahkan isi Kode LSP !");
             } else {
-                window.location = "main.html?kode_lsp=" + kode_lsp;
+                if(kode_lsp== '294'){
+                    window.location = "main.html?kode_lsp=" + kode_lsp;
+                }else{
+                    $.messager.alert('Warning', "LSP Belum terdaftar !");
+                }
+                
             }
         });
     })

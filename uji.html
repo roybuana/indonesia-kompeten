@@ -9,7 +9,8 @@
         <link rel="stylesheet" type="text/css" href="themes/material/easyui.css">
         <link rel="stylesheet" type="text/css" href="themes/mobile.css">
         <link rel="stylesheet" type="text/css" href="themes/icon.css">
-
+        <link rel="stylesheet" type="text/css" href="themes/color.css"> 
+        
         <script type="text/javascript" src="jquery.min.js"></script>
 
         <script type="text/javascript">
@@ -42,10 +43,10 @@
 
         <!-- Step 1 //-->
         <div class="easyui-navpanel">
-            <header>
+            <header class="c6">
                 <div class="m-toolbar">
                     <div class="m-left">
-                        <a href="#" class="easyui-linkbutton m-back" data-options="plain:true,outline:true,back:true">Back</a>
+                        <a href="#" class="easyui-linkbutton m-back c3" data-options="plain:true,outline:true,back:true">Back</a>
                     </div>
                     <div class="m-title">APL - 01</div>
                 </div>
@@ -98,8 +99,8 @@
                         <input id="jadwal" name="jadwal" value="Jadwal Uji" label='Jadwal Uji:' style="width:100%;">
                     </div>
 
-                    <div style="text-align:center;margin-top:30px">
-                        <a id="tombolRegister" href="javascript:void(0)">Step 2 >></a>
+                    <div style="text-align:center;margin-top:30px;margin-bottom: 30px;">
+                        <a class="c6" id="tombolRegister" href="javascript:void(0)">Step 2 >></a>
                         <!--#p2//-->
                     </div>
 
@@ -110,10 +111,10 @@
 
         <!-- Step 2 //-->
         <div id="p2" class="easyui-navpanel">
-            <header>
+            <header class="c6">
                 <div class="m-toolbar">
                     <div class="m-left">
-                        <a href="#" class="easyui-linkbutton m-back" data-options="plain:true,outline:true,back:true">Back</a>
+                        <a href="#" class="easyui-linkbutton m-back c3" data-options="plain:true,outline:true,back:true">Back</a>
                     </div>
                     <div class="m-title">Upload Dokumen Bukti</div>
                 </div>
@@ -150,8 +151,8 @@
                 </div>
 
                 <div style="padding: 0 10px;margin-top: 10px;">
-                    <div style="text-align:center;margin-top:30px">
-                        <a id="step2" href="javascript:void(0)">Step 3 >></a>
+                    <div style="text-align:center;margin-top:30px;margin-bottom: 30px;">
+                        <a class="c6" id="step2" href="javascript:void(0)">Step 3 >></a>
                     </div>
                 </div>
             </form>
@@ -160,17 +161,16 @@
         <!-- Step 3 //-->
         <div id="p3" class="easyui-navpanel">
             <form id="ff3" enctype="multipart/form-data">
-                <header>
-                    <div class="m-toolbar">
-                        <div class="m-left">
-                            <a href="#" class="easyui-linkbutton m-back" id="p3Back" data-options="plain:true,outline:true,back:true">Back</a>
-                        </div>
-                        <div class="m-title">Asesmen Mandiri</div>
+            <header class="c6">
+                <div class="m-toolbar">
+                    <div class="m-left">
+                        <a id="p3Back" href="#" class="easyui-linkbutton m-back c3" data-options="plain:true,outline:true,back:true">Back</a>
                     </div>
-                </header>
+                    <div class="m-title">Asesmen Mandiri</div>
+                </div>
+            </header>
 
-
-                <div style="padding: 0 10px;margin-top: 10px;" id="boxAsesmen">
+<div style="padding: 0 10px;margin-top: 10px;" id="boxAsesmen">
 
                     <!--
                     <div class="box">
@@ -187,7 +187,7 @@
 
                 <div style="padding: 0 10px;margin-top: 10px;">
                     <div style="text-align:center;margin-top:30px">
-                        <a id="step3" href="#p4">Selesai & Kirim</a>
+                        <a class="c6" id="step3" href="#p4">Selesai & Kirim</a>
                     </div>
                 </div>
 
@@ -364,6 +364,7 @@
                 // Upload Dokumen
                 $('#foto').filebox({
                     onChange: function (data) {
+                        $.messager.progress(); 
                         var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp + "/foto";
                         //$.messager.alert("Title", urlTarget);
                         var f = $("input[name=foto]");
@@ -378,7 +379,8 @@
                             contentType: false, // tell jQuery not to set contentType
                             success: function (data) {
                                 data = JSON.parse(data);
-                                var txt = "<input name='file_data[]' class='easyui-textbox uploadData' value='" + data.upload_data.file_name + "' readonly />";
+                                var txt = "<input type='hidden' name='file_data[]' class='easyui-textbox uploadData' value='" + data.upload_data.file_name + "' readonly />";
+                                $.messager.progress('close');
                                 $("#dtfoto").append(txt);
                             }
                         });
@@ -386,6 +388,8 @@
                 });
                 $('#ktp').filebox({
                     onChange: function (data) {
+                        $.messager.progress(); 
+                        
                         var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp + "/ktp";
                         var f = $("input[name=ktp]");
                         var listFiles = f[0].files;
@@ -399,7 +403,9 @@
                             contentType: false, // tell jQuery not to set contentType
                             success: function (data) {
                                 data = JSON.parse(data);
-                                var txt = "<input name='file_data[]' class='easyui-textbox uploadData' value='" + data.upload_data.file_name + "' readonly />";
+                                var txt = "<input type='hidden' name='file_data[]' class='easyui-textbox uploadData' value='" + data.upload_data.file_name + "' readonly />";
+                                $.messager.progress('close');
+                                
                                 $("#dtktp").append(txt);
                             }
                         });
@@ -407,6 +413,8 @@
                 });
                 $('#ijazah').filebox({
                     onChange: function (data) {
+                        $.messager.progress(); 
+                        
                         var urlTarget = remote_url + "index.php/uji/upload/" + kode_lsp + "/ijazah";
                         var f = $("input[name=ijazah]");
                         var listFiles = f[0].files;
@@ -420,7 +428,9 @@
                             contentType: false, // tell jQuery not to set contentType
                             success: function (data) {
                                 data = JSON.parse(data);
-                                var txt = "<input name='file_data[]' class='easyui-textbox uploadData' value='" + data.upload_data.file_name + "' readonly />";
+                                var txt = "<input type='hidden' name='file_data[]' class='easyui-textbox uploadData' value='" + data.upload_data.file_name + "' readonly />";
+                                $.messager.progress('close');
+                                
                                 $("#dtijazah").append(txt);
                             }
                         });
@@ -428,6 +438,8 @@
                 });
                 $('#dokumen').filebox({
                     onChange: function (data) {
+                        $.messager.progress(); 
+                        
                         var nama_dokumen = $("#nama_dokumen").val();
                         //$.messager.alert("Title", nama_dokumen);
 
@@ -444,7 +456,9 @@
                             contentType: false, // tell jQuery not to set contentType
                             success: function (data) {
                                 data = JSON.parse(data);
-                                var txt = "<input name='file_data[]' class='easyui-textbox uploadData' value='" + data.upload_data.file_name + "' readonly />";
+                                var txt = "<input  type='hidden' name='file_data[]' class='easyui-textbox uploadData' value='" + data.upload_data.file_name + "' readonly />";
+                                $.messager.progress('close');
+                                
                                 $("#dtdokumen").append(txt);
                             }
                         });
